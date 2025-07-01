@@ -1,3 +1,76 @@
+// Estructura de la coleccion sedes con JSONSchema
+db.createCollection("sedes", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["nombre", "direccion", "ciudad", "telefono"],
+            properties: {
+                nombre: {
+                    bsonType: "string",
+                    description: "Nombre de la sede, debe ser un string no vacío"
+                },
+                direccion: {
+                    bsonType: "string",
+                    description: "Dirección de la sede, debe ser un string no vacío"
+                },
+                ciudad: {
+                    bsonType: "string",
+                    description: "Ciudad donde se encuentra la sede, debe ser un string no vacío"
+                },
+                telefono: {
+                    bsonType: "string",
+                    pattern: "^\\+?[0-9]{10,15}$",
+                    description: "Teléfono de contacto de la sede, debe ser un string con formato internacional"
+                }
+            },
+            additionalProperties: false
+            
+        }
+    }
+});
+
+// Estructura de la coleccion zonas con JSONSchema
+db.createCollection("zonas", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["nombre", "sede_id", "tipos_vehiculo", "capacidad", "cupos_disponibles", "tarifa_hora"],
+            properties: {
+                nombre: {
+                    bsonType: "string",
+                    description: "Nombre de la zona, debe ser un string no vacío"
+                },
+                sede_id: {
+                    bsonType: "objectId",
+                    description: "ID de la sede a la que pertenece la zona, debe ser un ObjectId"
+                },
+                tipos_vehiculo: {
+                    bsonType: "array",
+                    items: { enum: ["carro", "moto", "camion", "bicicleta", "cuatrimoto", "vehiculoElectrico", "bus", "furgoneta"] },
+                    description: "Tipos de vehiculo permitidos en la zona, debe ser un array de strings con los siguientes valores: carro, moto, camion, bicicleta, cuatrimoto"
+                },
+                capacidad: {
+                    bsonType: "int",
+                    minimum: 1,
+                    description: "Capacidad total de la zona, debe ser un entero mayor o igual a 1"
+                },
+                cupos_disponibles: {
+                    bsonType: "int",
+                    minimum: 0,
+                    description: "Cupos disponibles en la zona, debe ser un entero mayor o igual a 0"
+                },
+                tarifa_hora: {
+                    bsonType: "double",
+                    minimum: 0,
+                    description: "Tarifa por hora de parqueo en la zona, debe ser un número mayor o igual a 0"
+                }
+            },
+            additionalProperties: false
+        }
+    }
+
+});
+
 // Estructura de la coleccion usuarios con JSONSchema
 db.createCollection("usuarios", {
     validator: {
@@ -24,7 +97,14 @@ db.createCollection("usuarios", {
                     enum:["administrador", "empleado", "cliente"],
                     description: "Rol del usuario, debe ser uno de los siguientes: administrador, empleado, cliente"
                 },
-                sede_id: {bsonType: "objectId"}
+                sede_id: {bsonType: "objectId"},
+                suscripcion: {
+                    bsonType: "object",
+                    properties: {
+                        tipo: {
+                            bsonType: "string",
+                            enum: ["diario", "semanal", "mensual", "trimestral","semestral", "anual"],
+                            description: "Tipo de suscripción del usuario, debe ser uno de los siguientes: diario, semanal, mensual, trimestral, semestral, anual"}}}
             },
             additionalProperties: false
         }
@@ -32,14 +112,14 @@ db.createCollection("usuarios", {
 });
 
 // Estructura de la coleccion vehiculos con JSONSchema
-db.createColection("vehiculos", {
+db.createCollection("vehiculos", {
     validator: {
         $jsonSchema: {
             bsonType: "object",
             required: ["tipo", "marca", "modelo", "usuario_id"],
             properties: {
                 placa: {
-                    bsonType: "sting",
+                    bsonType: "string",
                     description: "Placa del vehiculo, debe ser un string con formato AAA-000"
                 },
                 tipo: {
@@ -108,81 +188,8 @@ db.vehiculos.createIndex(
   { unique: true, partialFilterExpression: { placa: { $exists: true } } }
 );
 
-// Estructura de la coleccion sedes con JSONSchema
-db.createCollection("sedes", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["nombre", "direccion", "ciudad", "telefono"],
-            properties: {
-                nombre: {
-                    bsonType: "string",
-                    description: "Nombre de la sede, debe ser un string no vacío"
-                },
-                direccion: {
-                    bsonType: "string",
-                    description: "Dirección de la sede, debe ser un string no vacío"
-                },
-                ciudad: {
-                    bsonType: "string",
-                    description: "Ciudad donde se encuentra la sede, debe ser un string no vacío"
-                },
-                telefono: {
-                    bsonType: "string",
-                    pattern: "^\\+?[0-9]{10,15}$",
-                    description: "Teléfono de contacto de la sede, debe ser un string con formato internacional"
-                }
-            },
-            additionalProperties: false
-            
-        }
-    }
-});
-
-// Estructura de la coleccion zonas con JSONSchema
-db.createColection("zonas", {
-    validator: {
-        $jsonSchema: {
-            bsonType: "object",
-            required: ["nombre", "sede_id", "tipos_vehiculo", "capacidad", "cupos_disponibles", "tarifa_hora"],
-            properties: {
-                nombre: {
-                    bsonType: "string",
-                    description: "Nombre de la zona, debe ser un string no vacío"
-                },
-                sede_id: {
-                    bsonType: "objectId",
-                    description: "ID de la sede a la que pertenece la zona, debe ser un ObjectId"
-                },
-                tipos_vehiculo: {
-                    bsonType: "array",
-                    items: { enum: ["carro", "moto", "camion", "bicicleta", "cuatrimoto"] },
-                    description: "Tipos de vehiculo permitidos en la zona, debe ser un array de strings con los siguientes valores: carro, moto, camion, bicicleta, cuatrimoto"
-                },
-                capacidad: {
-                    bsonType: "int",
-                    minimum: 1,
-                    description: "Capacidad total de la zona, debe ser un entero mayor o igual a 1"
-                },
-                cupos_disponibles: {
-                    bsonType: "int",
-                    minimum: 0,
-                    description: "Cupos disponibles en la zona, debe ser un entero mayor o igual a 0"
-                },
-                tarifa_hora: {
-                    bsonType: "double",
-                    minimum: 0,
-                    description: "Tarifa por hora de parqueo en la zona, debe ser un número mayor o igual a 0"
-                }
-            },
-            additionalProperties: false
-        }
-    }
-
-});
-
 // Estructura de la coleccion parqueos con JSONSchema
-db.createColection("parqueos", {
+db.createCollection("parqueos", {
     validator: {
         $jsonSchema: {
             bsonType: "object",
@@ -225,3 +232,6 @@ db.createColection("parqueos", {
     }
 });
 db.parqueos.createIndex({ sede_id:1, zona_id:1});
+
+
+

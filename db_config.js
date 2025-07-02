@@ -185,6 +185,10 @@ db.createCollection("parqueos", {
                     bsonType: "objectId",
                     description: "ID de la zona donde se esta parqueando, debe ser un ObjectId"
                 },
+                fecha_ingreso: {
+                    bsonType: "date",
+                    description: "Fecha de ingreso del vehiculo al parqueadero, debe ser un objeto Date"
+                },
                 hora_entrada: {
                     bsonType: "date",
                     description: "Hora de entrada del vehiculo al parqueadero, debe ser un objeto Date"

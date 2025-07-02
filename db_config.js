@@ -76,7 +76,7 @@ db.createCollection("usuarios", {
     validator: {
         $jsonSchema:{
             bsonType: "object",
-            required: ["nombre","cedula","rol","email"],
+            required: ["nombre","cedula","rol","email", "fecha_creacion"],
             properties: {
                 nombre: {
                     bsonType: "string",
@@ -97,9 +97,20 @@ db.createCollection("usuarios", {
                     enum:["administrador", "empleado", "cliente"],
                     description: "Rol del usuario, debe ser uno de los siguientes: administrador, empleado, cliente"
                 },
-                sede_id: {bsonType: "objectId"},
+                clave: {
+                    bsonType: ["string", "null"],
+                    description: "Clave del usuario; requerida si el rol no es 'cliente'"
+                },
+                sede_id: {
+                    bsonType: "objectId",
+                    description: "ID de la sede a la que pertenece el usuario, debe ser un ObjectId"
+                },
+                fecha_creacion: {
+                    bsonType: "date",
+                    description: "Fecha de creación del usuario, debe ser un objeto Date"
+                },
                 suscripcion: {
-                    bsonType: "object",
+                    bsonType: ["object", "null"],
                     properties: {
                         tipo: {
                             bsonType: "string",
@@ -110,6 +121,7 @@ db.createCollection("usuarios", {
         }
     }    
 });
+db.usuarios.createIndex({ cedula: 1 }, {unique: true});
 
 // Estructura de la coleccion vehiculos con JSONSchema
 db.createCollection("vehiculos", {
@@ -124,8 +136,8 @@ db.createCollection("vehiculos", {
                 },
                 tipo: {
                     bsonType: "string",
-                    enum: [ "carro", "moto", "camion", "bicicleta", "cuatrimoto" ],
-                    description: "Tipo de vehiculo, debe ser uno de los siguientes: carro, moto, camion, bicicleta, cuatrimoto"
+                    items: { enum: ["carro", "moto", "camion", "bicicleta", "cuatrimoto", "vehiculoElectrico", "bus", "furgoneta"] },
+                    description: "Tipo de vehiculo, debe ser uno de los siguientes: carro, moto, camion, bicicleta, cuatrimoto, vehiculoElectrico, bus, furgoneta"
                 },
                 marca: {
                     bsonType: "string",
@@ -143,7 +155,7 @@ db.createCollection("vehiculos", {
             allOf: [
                 {
                     if: {
-                        properties: { tipo: { const: ["carro", "camion"] } }
+                        properties: { tipo: { const: ["carro", "camion", "vehiculoElectrico", "bus", "furgoneta"] } }
                     },
                     then: {
                         properties: {

@@ -832,7 +832,7 @@ db.parqueos.insertMany([
     {
     vehiculo_id: vehiculo11,
     sede_id: sedeSurId,
-    zona_id: zonaC4,
+    zona_id: zonaC2,
     fecha_ingreso: new Date("2025-06-14T12:00:00Z"),
     hora_entrada: new Date("2025-06-14T12:00:00Z"),
     hora_salida: new Date("2025-06-14T13:30:00Z"),
@@ -842,27 +842,27 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo12,
     sede_id: sedeSurId,
-    zona_id: zonaC2,
+    zona_id: zonaC5,
     fecha_ingreso: new Date("2025-06-15T09:00:00Z"),
     hora_entrada: new Date("2025-06-15T09:00:00Z"),
     hora_salida: new Date("2025-06-15T10:15:00Z"),
     tiempo_total_min: 75,
-    costo: 3375.0
+    costo: 2800.0
   },
   {
     vehiculo_id: vehiculo13,
     sede_id: sedeCentroId,
-    zona_id: zonaB3,
+    zona_id: zonaB4,
     fecha_ingreso: new Date("2025-06-15T11:30:00Z"),
     hora_entrada: new Date("2025-06-15T11:30:00Z"),
     hora_salida: new Date("2025-06-15T12:00:00Z"),
     tiempo_total_min: 30,
-    costo: 750.0
+    costo: 1000.0
   },
   {
     vehiculo_id: vehiculo14,
     sede_id: sedeCentroId,
-    zona_id: zonaB2,
+    zona_id: zonaB1,
     fecha_ingreso: new Date("2025-06-15T14:00:00Z"),
     hora_entrada: new Date("2025-06-15T14:00:00Z"),
     hora_salida: new Date("2025-06-15T15:00:00Z"),
@@ -877,7 +877,7 @@ db.parqueos.insertMany([
     hora_entrada: new Date("2025-06-16T08:00:00Z"),
     hora_salida: new Date("2025-06-16T09:30:00Z"),
     tiempo_total_min: 90,
-    costo: 4500.0
+    costo: 3000.0
   },
   {
     vehiculo_id: vehiculo16,
@@ -892,7 +892,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo17,
     sede_id: sedeNorteId,
-    zona_id: zonaA1,
+    zona_id: zonaA3,
     fecha_ingreso: new Date("2025-06-16T11:00:00Z"),
     hora_entrada: new Date("2025-06-16T11:00:00Z"),
     hora_salida: null,
@@ -902,7 +902,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo18,
     sede_id: sedeNorteId,
-    zona_id: zonaA2,
+    zona_id: zonaA1,
     fecha_ingreso: new Date("2025-06-16T11:15:00Z"),
     hora_entrada: new Date("2025-06-16T11:15:00Z"),
     hora_salida: new Date("2025-06-16T12:45:00Z"),
@@ -932,7 +932,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo21,
     sede_id: sedeNorteId,
-    zona_id: zonaA2,
+    zona_id: zonaA1,
     fecha_ingreso: new Date("2025-06-17T09:15:00Z"),
     hora_entrada: new Date("2025-06-17T09:15:00Z"),
     hora_salida: null,
@@ -942,7 +942,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo22,
     sede_id: sedeCentroId,
-    zona_id: zonaB5,
+    zona_id: zonaC3,
     fecha_ingreso: new Date("2025-06-17T10:45:00Z"),
     hora_entrada: new Date("2025-06-17T10:45:00Z"),
     hora_salida: new Date("2025-06-17T12:00:00Z"),
@@ -952,7 +952,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo23,
     sede_id: sedeSurId,
-    zona_id: zonaC4,
+    zona_id: zonaB5,
     fecha_ingreso: new Date("2025-06-17T13:00:00Z"),
     hora_entrada: new Date("2025-06-17T13:00:00Z"),
     hora_salida: new Date("2025-06-17T13:45:00Z"),
@@ -962,7 +962,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo24,
     sede_id: sedeCentroId,
-    zona_id: zonaB2,
+    zona_id: zonaB1,
     fecha_ingreso: new Date("2025-06-17T14:30:00Z"),
     hora_entrada: new Date("2025-06-17T14:30:00Z"),
     hora_salida: null,
@@ -992,7 +992,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo27,
     sede_id: sedeCentroId,
-    zona_id: zonaB1,
+    zona_id: zonaC5,
     fecha_ingreso: new Date("2025-06-18T09:15:00Z"),
     hora_entrada: new Date("2025-06-18T09:15:00Z"),
     hora_salida: new Date("2025-06-18T10:30:00Z"),
@@ -1002,7 +1002,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo28,
     sede_id: sedeCentroId,
-    zona_id: zonaB4,
+    zona_id: zonaA3,
     fecha_ingreso: new Date("2025-06-18T10:45:00Z"),
     hora_entrada: new Date("2025-06-18T10:45:00Z"),
     hora_salida: null,
@@ -1012,7 +1012,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo29,
     sede_id: sedeSurId,
-    zona_id: zonaC3,
+    zona_id: zonaB3,
     fecha_ingreso: new Date("2025-06-18T12:00:00Z"),
     hora_entrada: new Date("2025-06-18T12:00:00Z"),
     hora_salida: new Date("2025-06-18T13:30:00Z"),
@@ -1042,7 +1042,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo2,
     sede_id: sedeCentroId,
-    zona_id: zonaB1,
+    zona_id: zonaA3,
     fecha_ingreso: new Date("2025-06-19T09:45:00Z"),
     hora_entrada: new Date("2025-06-19T09:45:00Z"),
     hora_salida: null,
@@ -1052,7 +1052,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo3,
     sede_id: sedeNorteId,
-    zona_id: zonaA3,
+    zona_id: zonaA1,
     fecha_ingreso: new Date("2025-06-19T10:30:00Z"),
     hora_entrada: new Date("2025-06-19T10:30:00Z"),
     hora_salida: new Date("2025-06-19T12:00:00Z"),
@@ -1062,7 +1062,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo4,
     sede_id: sedeCentroId,
-    zona_id: zonaB5,
+    zona_id: zonaC3,
     fecha_ingreso: new Date("2025-06-19T13:00:00Z"),
     hora_entrada: new Date("2025-06-19T13:00:00Z"),
     hora_salida: new Date("2025-06-19T14:30:00Z"),
@@ -1072,7 +1072,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo5,
     sede_id: sedeSurId,
-    zona_id: zonaC3,
+    zona_id: zonaC1,
     fecha_ingreso: new Date("2025-06-19T15:00:00Z"),
     hora_entrada: new Date("2025-06-19T15:00:00Z"),
     hora_salida: new Date("2025-06-19T15:45:00Z"),
@@ -1082,7 +1082,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo6,
     sede_id: sedeNorteId,
-    zona_id: zonaA1,
+    zona_id: zonaA4,
     fecha_ingreso: new Date("2025-06-20T08:30:00Z"),
     hora_entrada: new Date("2025-06-20T08:30:00Z"),
     hora_salida: null,
@@ -1092,7 +1092,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo7,
     sede_id: sedeNorteId,
-    zona_id: zonaA4,
+    zona_id: zonaA1,
     fecha_ingreso: new Date("2025-06-20T09:00:00Z"),
     hora_entrada: new Date("2025-06-20T09:00:00Z"),
     hora_salida: new Date("2025-06-20T10:00:00Z"),
@@ -1102,7 +1102,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo8,
     sede_id: sedeCentroId,
-    zona_id: zonaB2,
+    zona_id: zonaB3,
     fecha_ingreso: new Date("2025-06-20T10:30:00Z"),
     hora_entrada: new Date("2025-06-20T10:30:00Z"),
     hora_salida: new Date("2025-06-20T11:45:00Z"),
@@ -1112,7 +1112,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo9,
     sede_id: sedeSurId,
-    zona_id: zonaC1,
+    zona_id: zonaB5,
     fecha_ingreso: new Date("2025-06-20T12:00:00Z"),
     hora_entrada: new Date("2025-06-20T12:00:00Z"),
     hora_salida: null,
@@ -1122,7 +1122,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo10,
     sede_id: sedeCentroId,
-    zona_id: zonaB4,
+    zona_id: zonaA3,
     fecha_ingreso: new Date("2025-06-20T13:15:00Z"),
     hora_entrada: new Date("2025-06-20T13:15:00Z"),
     hora_salida: new Date("2025-06-20T13:45:00Z"),
@@ -1132,7 +1132,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo11,
     sede_id: sedeSurId,
-    zona_id: zonaC5,
+    zona_id: zonaC2,
     fecha_ingreso: new Date("2025-06-20T14:00:00Z"),
     hora_entrada: new Date("2025-06-20T14:00:00Z"),
     hora_salida: new Date("2025-06-20T15:45:00Z"),
@@ -1142,7 +1142,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo12,
     sede_id: sedeNorteId,
-    zona_id: zonaA3,
+    zona_id: zonaC5,
     fecha_ingreso: new Date("2025-06-21T08:00:00Z"),
     hora_entrada: new Date("2025-06-21T08:00:00Z"),
     hora_salida: null,
@@ -1152,7 +1152,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo13,
     sede_id: sedeCentroId,
-    zona_id: zonaB1,
+    zona_id: zonaB4,
     fecha_ingreso: new Date("2025-06-21T09:30:00Z"),
     hora_entrada: new Date("2025-06-21T09:30:00Z"),
     hora_salida: new Date("2025-06-21T10:15:00Z"),
@@ -1162,7 +1162,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo14,
     sede_id: sedeCentroId,
-    zona_id: zonaB3,
+    zona_id: zonaB1,
     fecha_ingreso: new Date("2025-06-21T10:30:00Z"),
     hora_entrada: new Date("2025-06-21T10:30:00Z"),
     hora_salida: new Date("2025-06-21T11:45:00Z"),
@@ -1172,7 +1172,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo15,
     sede_id: sedeSurId,
-    zona_id: zonaC4,
+    zona_id: zonaC1,
     fecha_ingreso: new Date("2025-06-21T12:00:00Z"),
     hora_entrada: new Date("2025-06-21T12:00:00Z"),
     hora_salida: null,
@@ -1182,7 +1182,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo16,
     sede_id: sedeSurId,
-    zona_id: zonaC2,
+    zona_id: zonaB3,
     fecha_ingreso: new Date("2025-06-21T13:15:00Z"),
     hora_entrada: new Date("2025-06-21T13:15:00Z"),
     hora_salida: new Date("2025-06-21T14:15:00Z"),
@@ -1192,7 +1192,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo17,
     sede_id: sedeNorteId,
-    zona_id: zonaA1,
+    zona_id: zonaA3,
     fecha_ingreso: new Date("2025-06-21T14:30:00Z"),
     hora_entrada: new Date("2025-06-21T14:30:00Z"),
     hora_salida: null,
@@ -1202,7 +1202,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo18,
     sede_id: sedeCentroId,
-    zona_id: zonaB5,
+    zona_id: zonaB1,
     fecha_ingreso: new Date("2025-06-22T08:00:00Z"),
     hora_entrada: new Date("2025-06-22T08:00:00Z"),
     hora_salida: new Date("2025-06-22T09:30:00Z"),
@@ -1212,7 +1212,7 @@ db.parqueos.insertMany([
   {
     vehiculo_id: vehiculo19,
     sede_id: sedeSurId,
-    zona_id: zonaC5,
+    zona_id: zonaC4,
     fecha_ingreso: new Date("2025-06-22T10:00:00Z"),
     hora_entrada: new Date("2025-06-22T10:00:00Z"),
     hora_salida: null,

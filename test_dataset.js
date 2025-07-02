@@ -6,21 +6,21 @@ let sedeNorteId = db.sedes.insertOne({
   nombre: "Sede Norte",
   direccion: "Cra. 45 #120-55",
   ciudad: "Bogotá",
-  telefono: "+573101112233"
+  telefono: "3101112233"
 }).insertedId;
 
 let sedeCentroId = db.sedes.insertOne({
   nombre: "Sede Centro",
   direccion: "Cl. 10 #35-20",
   ciudad: "Medellín",
-  telefono: "+573022469587"
+  telefono: "3152469587"
 }).insertedId;
 
 let sedeSurId = db.sedes.insertOne({
   nombre: "Sede Sur",
   direccion: "Av. Malpaso #80-15",
   ciudad: "Cali",
-  telefono: "+573153809684"
+  telefono: "3153809684"
 }).insertedId;
 
 // ==============================
@@ -1227,6 +1227,6 @@ db.parqueos.insertMany([
     hora_entrada: new Date("2025-06-22T11:00:00Z"),
     hora_salida: new Date("2025-06-22T12:30:00Z"),
     tiempo_total_min: 90,
-    costo: 7750.0
+    costo: 7750
   }
 ]);

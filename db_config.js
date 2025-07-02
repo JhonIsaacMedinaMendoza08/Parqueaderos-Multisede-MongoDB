@@ -19,12 +19,10 @@ db.createCollection("sedes", {
                 },
                 telefono: {
                     bsonType: "string",
-                    pattern: "^\\+?[0-9]{10,15}$",
+                    pattern: "^[0-9]{10,15}$",
                     description: "Teléfono de contacto de la sede, debe ser un string con formato internacional"
                 }
-            },
-            additionalProperties: false
-            
+            }
         }
     }
 });
@@ -60,12 +58,11 @@ db.createCollection("zonas", {
                     description: "Cupos disponibles en la zona, debe ser un entero mayor o igual a 0"
                 },
                 tarifa_hora: {
-                    bsonType: "double",
+                    bsonType: "int",
                     minimum: 0,
                     description: "Tarifa por hora de parqueo en la zona, debe ser un número mayor o igual a 0"
                 }
-            },
-            additionalProperties: false
+            }
         }
     }
 
@@ -74,9 +71,9 @@ db.createCollection("zonas", {
 // Estructura de la coleccion usuarios con JSONSchema
 db.createCollection("usuarios", {
     validator: {
-        $jsonSchema:{
+        $jsonSchema: {
             bsonType: "object",
-            required: ["nombre","cedula","rol","email", "fecha_creacion"],
+            required: ["nombre", "cedula", "rol", "email", "fecha_creacion"],
             properties: {
                 nombre: {
                     bsonType: "string",
@@ -88,13 +85,13 @@ db.createCollection("usuarios", {
                     description: "Cedula del usuario, debe ser un string de 10 digitos"
                 },
                 email: {
-                    bsonType: "string", 
+                    bsonType: "string",
                     pattern: "^\\S+@\\S+\\.\\S+$",
                     description: "Email del usuario, debe ser un string con formato de email"
                 },
-                rol: { 
-                    bsonType: "string", 
-                    enum:["administrador", "empleado", "cliente"],
+                rol: {
+                    bsonType: "string",
+                    enum: ["administrador", "empleado", "cliente"],
                     description: "Rol del usuario, debe ser uno de los siguientes: administrador, empleado, cliente"
                 },
                 clave: {
@@ -114,14 +111,16 @@ db.createCollection("usuarios", {
                     properties: {
                         tipo: {
                             bsonType: "string",
-                            enum: ["diario", "semanal", "mensual", "trimestral","semestral", "anual"],
-                            description: "Tipo de suscripción del usuario, debe ser uno de los siguientes: diario, semanal, mensual, trimestral, semestral, anual"}}}
-            },
-            additionalProperties: false
+                            enum: ["diario", "semanal", "mensual", "trimestral", "semestral", "anual"],
+                            description: "Tipo de suscripción del usuario, debe ser uno de los siguientes: diario, semanal, mensual, trimestral, semestral, anual"
+                        }
+                    }
+                }
+            }
         }
-    }    
+    }
 });
-db.usuarios.createIndex({ cedula: 1 }, {unique: true});
+db.usuarios.createIndex({ cedula: 1 }, { unique: true });
 
 // Estructura de la coleccion vehiculos con JSONSchema
 db.createCollection("vehiculos", {
@@ -131,8 +130,9 @@ db.createCollection("vehiculos", {
             required: ["tipo", "marca", "modelo", "usuario_id"],
             properties: {
                 placa: {
-                    bsonType: "string",
-                    description: "Placa del vehiculo, debe ser un string con formato AAA-000"
+                    bsonType: ["string", "null"],
+                    pattern: "^([A-Z]{3}[0-9]{3}|[A-Z]{3}[0-9]{2}[A-Z]{1})$",
+                    description: "Placa del vehículo (formato AAA000 o AAA00A)"
                 },
                 tipo: {
                     bsonType: "string",
@@ -151,53 +151,19 @@ db.createCollection("vehiculos", {
                     bsonType: "objectId",
                     description: "ID del usuario propietario del vehiculo, debe ser un ObjectId"
                 }
-            },
-            allOf: [
-                {
-                    if: {
-                        properties: { tipo: { const: ["carro", "camion", "vehiculoElectrico", "bus", "furgoneta"] } }
-                    },
-                    then: {
-                        properties: {
-                            placa: {
-                                pattern: "^[A-Z]{3}[0-9]{3}$",
-                                description: "Placa de carro, debe ser un string con formato AAA-000"
-                            }
-                        }
-                    }
-                },
-                {
-                    if: {
-                        properties: { tipo: { const: ["moto" , "cuatrimoto"]}}
-                    }, 
-                    then: {
-                        properties: {
-                            placa: {
-                                pattern: "^[A-Z]{3}[0-9]{2}[A-Z]{1}$",
-                                description: "Placa de moto, debe ser un string con formato AAA-00A"
-                            }
-                        }
-                    }
-                },
-                {
-                    if: {
-                        properties: { tipo: {const: "bicicleta"}}
-                    }, then: {
-                        properties:{
-                            placa: {
-                                bsonType: ["null", "string"],
-                                description: "Placa de bicicleta, puede ser null o un string vacio"
-                            }
-                        }
-                    }
-                }
-            ]
+            }
         }
-    }});
+    }
+});
 // Índice único en placa, pero solo para documentos que tengan placa
 db.vehiculos.createIndex(
   { placa: 1 },
-  { unique: true, partialFilterExpression: { placa: { $exists: true } } }
+  {
+    unique: true,
+    partialFilterExpression: {
+      placa: { $type: "string" }
+    }
+  }
 );
 
 // Estructura de la coleccion parqueos con JSONSchema
@@ -224,26 +190,25 @@ db.createCollection("parqueos", {
                     description: "Hora de entrada del vehiculo al parqueadero, debe ser un objeto Date"
                 },
                 hora_salida: {
-                    bsonType: "date",
+                    bsonType: ["date", "null"],
                     description: "Hora de salida del vehiculo del parqueadero, debe ser un objeto Date"
                 },
                 tiempo_total_min: {
-                    bsonType: "int",
+                    bsonType: ["int", "null"],
                     minimum: 0,
                     description: "Tiempo total de parqueo en minutos, debe ser un entero mayor o igual a 0"
                 },
                 costo: {
-                    bsonType: "double",
+                    bsonType: ["int", "null"],
                     minimum: 0,
                     description: "Costo total del parqueo, debe ser un número mayor o igual a 0"
                 }
-                    
-            },
-            additionalProperties: false
+
+            }
         }
     }
 });
-db.parqueos.createIndex({ sede_id:1, zona_id:1});
+db.parqueos.createIndex({ sede_id: 1, zona_id: 1 });
 
 
 

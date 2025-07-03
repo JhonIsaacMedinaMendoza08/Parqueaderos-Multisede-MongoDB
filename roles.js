@@ -25,6 +25,15 @@ db.createRole({
   ],
   roles: []
 });
+db.updateRole("empleado", {
+  privileges: [
+    { resource: { db: "parqueaderos_multisede", collection: "usuarios" }, actions: ["find"] },
+    { resource: { db: "parqueaderos_multisede", collection: "vehiculos" }, actions: ["find"] },
+    { resource: { db: "parqueaderos_multisede", collection: "parqueos" }, actions: ["insert", "update", "find"] },
+    { resource: { db: "parqueaderos_multisede", collection: "zonas" }, actions: ["find", "update"] },
+    { resource: { db: "parqueaderos_multisede", collection: "sedes" }, actions: ["find"] }
+  ]
+});
 
 db.createRole({
   role: "cliente",

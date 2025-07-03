@@ -48,17 +48,17 @@ db.createCollection("zonas", {
                     description: "Tipos de vehiculo permitidos en la zona, debe ser un array de strings con los siguientes valores: carro, moto, camion, bicicleta, cuatrimoto"
                 },
                 capacidad: {
-                    bsonType: "int",
+                    bsonType: "double",
                     minimum: 1,
                     description: "Capacidad total de la zona, debe ser un entero mayor o igual a 1"
                 },
                 cupos_disponibles: {
-                    bsonType: "int",
+                    bsonType: "double",
                     minimum: 0,
                     description: "Cupos disponibles en la zona, debe ser un entero mayor o igual a 0"
                 },
                 tarifa_hora: {
-                    bsonType: "int",
+                    bsonType: "double",
                     minimum: 0,
                     description: "Tarifa por hora de parqueo en la zona, debe ser un número mayor o igual a 0"
                 }
@@ -171,7 +171,7 @@ db.createCollection("parqueos", {
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ["vehiculo_id", "sede_id", "zona_id", "fecha_ingreso", "hora_entrada"],
+            required: ["vehiculo_id", "sede_id", "zona_id", "hora_entrada"],
             properties: {
                 vehiculo_id: {
                     bsonType: "objectId",
@@ -185,10 +185,6 @@ db.createCollection("parqueos", {
                     bsonType: "objectId",
                     description: "ID de la zona donde se esta parqueando, debe ser un ObjectId"
                 },
-                fecha_ingreso: {
-                    bsonType: "date",
-                    description: "Fecha de ingreso del vehiculo al parqueadero, debe ser un objeto Date"
-                },
                 hora_entrada: {
                     bsonType: "date",
                     description: "Hora de entrada del vehiculo al parqueadero, debe ser un objeto Date"
@@ -198,12 +194,12 @@ db.createCollection("parqueos", {
                     description: "Hora de salida del vehiculo del parqueadero, debe ser un objeto Date"
                 },
                 tiempo_total_min: {
-                    bsonType: ["int", "null"],
+                    bsonType: ["double", "null"],
                     minimum: 0,
                     description: "Tiempo total de parqueo en minutos, debe ser un entero mayor o igual a 0"
                 },
                 costo: {
-                    bsonType: ["int", "null"],
+                    bsonType: ["double", "null", "int"],
                     minimum: 0,
                     description: "Costo total del parqueo, debe ser un número mayor o igual a 0"
                 }

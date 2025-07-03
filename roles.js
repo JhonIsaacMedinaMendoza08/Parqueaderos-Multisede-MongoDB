@@ -32,6 +32,7 @@ db.updateRole("empleado", {
     { resource: { db: "parqueaderos_multisede", collection: "parqueos" }, actions: ["insert", "update", "find"] },
     { resource: { db: "parqueaderos_multisede", collection: "zonas" }, actions: ["find", "update"] },
     { resource: { db: "parqueaderos_multisede", collection: "sedes" }, actions: ["find"] }
+    
   ]
 });
 

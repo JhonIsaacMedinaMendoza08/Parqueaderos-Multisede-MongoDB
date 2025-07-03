@@ -3,7 +3,7 @@ const dbSession = session.getDatabase("parqueaderos_multisede");
 session.startTransaction();
 
 try {
-  const vehiculoId = dbSession.vehiculos.findOne({ placa: "WFV378" })._id;
+  const vehiculoId = dbSession.vehiculos.findOne({ placa: "FRH920" })._id;
   const sedeId = dbSession.sedes.findOne({ nombre: "Sede Norte" })._id;
   const zonaId = dbSession.zonas.findOne({ nombre: "Zona A1" })._id;
   const horaEntrada = new Date();

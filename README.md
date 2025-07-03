@@ -204,6 +204,17 @@ try {
 
 🟢 Finalizado y probado localmente.  
 📘 Listo para presentación y entrega académica.
+📅 Duración y cobro automático
+
+---
+
+---
+
+## ✅ Mejoras
+
+🟢 Manejo correcto del Historial de suscripciones y de suscripciones ya que actualmente no se maneja de esa forma la base de datos pero esta es escalable. 
+📘 Adicionar mas indices compuestos
+
 
 ---
 

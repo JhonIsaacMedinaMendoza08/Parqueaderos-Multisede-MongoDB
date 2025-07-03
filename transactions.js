@@ -1,3 +1,11 @@
+//Conéctate como el usuario empleado1:
+//mongo -u empleado1 -p empleado123 --authenticationDatabase parqueaderos_multisede
+
+// Conéctate como el usuario cliente:
+// Puedes usar el siguiente comando en la terminal de MongoDB Shell para conectarte a la base
+// mongo -u cliente -p cliente123 --authenticationDatabase parqueaderos_multisede
+
+
 const session = db.getMongo().startSession();
 const dbSession = session.getDatabase("parqueaderos_multisede");
 session.startTransaction();

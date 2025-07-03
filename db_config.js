@@ -165,7 +165,6 @@ db.vehiculos.createIndex(
     }
   }
 );
-
 // Estructura de la coleccion parqueos con JSONSchema
 db.createCollection("parqueos", {
     validator: {

@@ -452,3 +452,200 @@ if (cliente) {
   print("❌ Cliente no encontrado con cédula: " + cedulaCliente);
 }
 // ================================================================
+// Calcular un parqueo completo con funciones
+
+function calcularCostoParqueo(parqueo) {
+  if (!parqueo.horaIngreso || !parqueo.horaSalida || !parqueo.tarifaHora) {
+    throw new Error("El parqueo debe tener horaIngreso, horaSalida y tarifaHora.");
+  }
+
+  // Calcular la diferencia en milisegundos
+  const msDiferencia = parqueo.horaSalida - parqueo.horaIngreso;
+
+  // Convertir a horas (1 hora = 3600000 ms)
+  const horasExactas = msDiferencia / (1000 * 60 * 60);
+
+  // Redondear al entero más cercano
+  const tiempoTotalHoras = Math.round(horasExactas);
+
+  // Calcular el costo total
+  const costoTotal = tiempoTotalHoras * parqueo.tarifaHora;
+
+  return {
+    tiempoTotalHoras,
+    costoTotal
+  };
+}
+
+// Ejemplo de uso:
+const ejemploParqueo = {
+  horaIngreso: new Date("2025-07-10T08:00:00"),
+  horaSalida: new Date("2025-07-10T10:20:00"),
+  tarifaHora: 2500
+};
+
+const resultado = calcularCostoParqueo(ejemploParqueo);
+printjson(resultado); // { tiempoTotalHoras: 2, costoTotal: 5000 }
+
+
+/// funcion para registrar salida y calcular costo de parqueo
+// Esta función registra la salida de un vehículo y calcula el costo del parqueo
+// Parámetros:
+// - placaVehiculo: Placa del vehículo que sale del parqueadero
+// - horaSalida: Hora de salida del vehículo (opcional, si no se proporciona se usa la hora actual)
+// - db: Base de datos de MongoDB (por defecto se usa "parqueaderos_multisede")
+// - tarifaHora: Tarifa por hora de parqueo (se obtiene de la zona del parqueo)
+// - zonaId: ID de la zona del parqueo (se obtiene del parqueo activo)
+// - sedeId: ID de la sede del parqueo (se obtiene del parqueo activo)
+// - parqueo: Objeto del parqueo activo (se obtiene de la base de datos)
+// - horaEntrada: Hora de entrada del parqueo (se obtiene del parqueo activo)
+// - tiempoTotalMin: Tiempo total en minutos del parqueo (se calcula a partir de la diferencia entre horaSalida y horaEntrada)
+// - costo: Costo total del parqueo (se calcula a partir del tiempoTotalHoras y la tarifaHora)
+// - resultado: Objeto con el tiempo
+function registrarSalidaYCalcularCosto(placaVehiculo) {
+  const db = db.getSiblingDB("parqueaderos_multisede");
+
+  if (!placaVehiculo) {
+    print("❌ Debes proporcionar una placa válida.");
+    return;
+  }
+
+  // 1. Buscar el parqueo más reciente sin costo
+  const parqueo = db.parqueos.findOne(
+    { placa: placaVehiculo, costo: null },
+    { sort: { hora_entrada: -1 } }
+  );
+
+  if (!parqueo) {
+    print("❌ No se encontró un parqueo activo para la placa:", placaVehiculo);
+    return;
+  }
+
+  // 2. Establecer hora de salida si no está
+  const horaSalida = parqueo.hora_salida || new Date();
+
+  // 3. Buscar la sede y zona para obtener tarifa
+  const sede = db.sedes.findOne({ "zonas._id": parqueo.zona_id });
+  if (!sede) {
+    print("❌ Zona no encontrada dentro de ninguna sede.");
+    return;
+  }
+
+  const zona = sede.zonas.find(z => z._id.valueOf() === parqueo.zona_id.valueOf());
+  if (!zona) {
+    print("❌ No se encontró la zona correspondiente.");
+    return;
+  }
+
+  const tarifaHora = zona.tarifa_hora;
+
+  // 4. Calcular tiempo y costo
+  const msDiferencia = horaSalida - parqueo.hora_entrada;
+  const horasExactas = msDiferencia / (1000 * 60 * 60);
+  const tiempoTotalHoras = Math.round(horasExactas);
+  const costoTotal = tiempoTotalHoras * tarifaHora;
+
+  // 5. Actualizar parqueo con hora_salida, tiempo y costo
+  db.parqueos.updateOne(
+    { _id: parqueo._id },
+    {
+      $set: {
+        hora_salida: horaSalida,
+        tiempo_total_min: Math.round(msDiferencia / 60000),
+        costo: costoTotal
+      }
+    }
+  );
+
+  // 6. Imprimir resultado
+  print("✅ Cálculo realizado correctamente para placa:", placaVehiculo);
+  printjson({
+    tiempoTotalHoras,
+    costoTotal
+  });
+}
+
+
+
+
+
+
+function registrarParqueoYCalcularCosto(placaVehiculo) {
+  const db = db.getSiblingDB("parqueaderos_multisede");
+
+  if (!placaVehiculo) {
+    print("❌ Debes proporcionar una placa válida.");
+    return;
+  }
+
+  // 1. Buscar al cliente que tiene el vehículo con esta placa
+  const cliente = db.usuarios.findOne({ "vehiculos.placa": placaVehiculo });
+  if (!cliente) {
+    print("❌ Cliente o vehículo no encontrado.");
+    return;
+  }
+
+  const vehiculo = cliente.vehiculos.find(v => v.placa === placaVehiculo);
+  if (!vehiculo) {
+    print("❌ Vehículo no encontrado en el cliente.");
+    return;
+  }
+
+  // 2. Buscar una sede con zona disponible para ese tipo de vehículo
+  const sede = db.sedes.findOne({
+    zonas: {
+      $elemMatch: {
+        tipos_vehiculo: vehiculo.tipo,
+        cupos_disponibles: { $gt: 0 }
+      }
+    }
+  });
+
+  if (!sede) {
+    print("❌ No hay sede con cupo disponible para ese tipo de vehículo.");
+    return;
+  }
+
+  const zona = sede.zonas.find(z =>
+    z.tipos_vehiculo.includes(vehiculo.tipo) && z.cupos_disponibles > 0
+  );
+
+  if (!zona) {
+    print("❌ No se encontró zona disponible compatible con el vehículo.");
+    return;
+  }
+
+  const horaEntrada = new Date();
+  const horaSalida = new Date(horaEntrada.getTime() + 1000 * 60 * 60 * 2); // simula 2h de parqueo
+  const msDiferencia = horaSalida - horaEntrada;
+  const horasExactas = msDiferencia / (1000 * 60 * 60);
+  const tiempoTotalHoras = Math.round(horasExactas);
+  const costoTotal = tiempoTotalHoras * zona.tarifa_hora;
+
+  // 3. Insertar parqueo
+  const parqueoId = db.parqueos.insertOne({
+    placa: placaVehiculo,
+    tipo_vehiculo: vehiculo.tipo,
+    sede_id: sede._id,
+    zona_id: zona._id,
+    hora_entrada: horaEntrada,
+    hora_salida: horaSalida,
+    tiempo_total_min: Math.round(msDiferencia / 60000),
+    costo: costoTotal
+  }).insertedId;
+
+  // 4. Actualizar cupos en la zona correspondiente
+  db.sedes.updateOne(
+    { _id: sede._id, "zonas._id": zona._id },
+    { $inc: { "zonas.$.cupos_disponibles": -1 } }
+  );
+
+  print("✅ Parqueo registrado y costo calculado exitosamente.");
+  printjson({
+    parqueo_id: parqueoId,
+    tiempoTotalHoras,
+    costoTotal,
+    sede: sede.nombre,
+    zona: zona.nombre
+  });
+}

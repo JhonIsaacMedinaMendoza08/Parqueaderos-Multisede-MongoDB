@@ -89,3 +89,6 @@ db.parqueos.aggregate([
     { $group: { _id: "$tipo_vehiculo", promedio_min: { $avg: "$tiempo_total_min" } } },
     { $sort: { promedio_min: -1 } },
   ]);
+
+
+  ///glglglg

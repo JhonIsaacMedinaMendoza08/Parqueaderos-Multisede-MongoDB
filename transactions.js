@@ -11,31 +11,49 @@ const dbSession = session.getDatabase("parqueaderos_multisede");
 session.startTransaction();
 
 try {
-  const vehiculoId = dbSession.vehiculos.findOne({ placa: "FRH920" })._id;
-  const sedeId = dbSession.sedes.findOne({ nombre: "Sede Norte" })._id;
-  const zonaId = dbSession.zonas.findOne({ nombre: "Zona A1" })._id;
-  const horaEntrada = new Date();
+  const cliente = dbSession.usuarios.findOne({
+    "vehiculos.placa": "FRH920"
+  });
 
-  // Insertar el nuevo parqueo
+  if (!cliente) throw new Error("Vehículo no encontrado en usuarios.");
+
+  const sede = dbSession.sedes.findOne({ nombre: "Sede Norte" });
+  if (!sede) throw new Error("Sede no encontrada.");
+
+  const zona = sede.zonas.find(z => z.nombre === "Zona A1");
+  if (!zona) throw new Error("Zona no encontrada en sede.");
+
+  if (zona.cupos_disponibles <= 0) {
+    throw new Error("No hay cupos disponibles en la zona seleccionada.");
+  }
+
+  // Insertar parqueo
   dbSession.parqueos.insertOne({
-    vehiculo_id: vehiculoId,
-    sede_id: sedeId,
-    zona_id: zonaId,
-    hora_entrada: horaEntrada,
+    placa: "FRH920",
+    tipo_vehiculo: cliente.vehiculos.find(v => v.placa === "FRH920").tipo,
+    sede_id: sede._id,
+    zona_id: zona._id,
+    hora_entrada: new Date(),
     hora_salida: null,
     tiempo_total_min: null,
     costo: null
   }, { session });
 
-  // Actualizar los cupos disponibles
-  const updateResult = dbSession.zonas.updateOne(
-    { _id: zonaId, cupos_disponibles: { $gt: 0 } },
-    { $inc: { cupos_disponibles: -1 } },
+  // Actualizar zona embebida dentro de sedes
+  const updateResult = dbSession.sedes.updateOne(
+    {
+      _id: sede._id,
+      "zonas._id": zona._id,
+      "zonas.cupos_disponibles": { $gt: 0 }
+    },
+    {
+      $inc: { "zonas.$.cupos_disponibles": -1 }
+    },
     { session }
   );
 
   if (updateResult.modifiedCount === 0) {
-    throw new Error("No hay cupos disponibles en la zona seleccionada.");
+    throw new Error("No fue posible reducir el cupo de la zona.");
   }
 
   session.commitTransaction();

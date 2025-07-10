@@ -1,32 +1,76 @@
 // ==============================
 // Insertar SEDES
 // ==============================
+// Crear sedes con zonas embebidas
 
-var sedeNorteId = db.sedes.insertOne({ nombre: "Sede Norte", direccion: "Cra. 45 #120-55", ciudad: "Bogotá", telefono: "3101112233" }).insertedId;
-var sedeCentroId = db.sedes.insertOne({ nombre: "Sede Centro", direccion: "Cl. 10 #35-20", ciudad: "Medellín", telefono: "3152469587" }).insertedId;
-var sedeSurId = db.sedes.insertOne({ nombre: "Sede Sur", direccion: "Av. Malpaso #80-15", ciudad: "Cali", telefono: "3153809684" }).insertedId;
+var sedeNorteId = ObjectId();
+var sedeCentroId = ObjectId();
+var sedeSurId = ObjectId();
 
-// ==============================
-// Insertar ZONAS
-// ==============================
+// Predefinir zonas con _id para usar en parqueos
+var zonaA1 = ObjectId();
+var zonaA2 = ObjectId();
+var zonaA3 = ObjectId();
+var zonaA4 = ObjectId();
+var zonaA5 = ObjectId();
+var zonaB1 = ObjectId();
+var zonaB2 = ObjectId();
+var zonaB3 = ObjectId();
+var zonaB4 = ObjectId();
+var zonaB5 = ObjectId();
+var zonaC1 = ObjectId();
+var zonaC2 = ObjectId();
+var zonaC3 = ObjectId();
+var zonaC4 = ObjectId();
+var zonaC5 = ObjectId();
 
-var zonaA1 = db.zonas.insertOne({ nombre: "Zona A1", sede_id: sedeNorteId, tipos_vehiculo: ["carro"], capacidad: 10, cupos_disponibles: 10, tarifa_hora: 2500 }).insertedId;
-var zonaA2 = db.zonas.insertOne({ nombre: "Zona A2", sede_id: sedeNorteId, tipos_vehiculo: ["camion"], capacidad: 5, cupos_disponibles: 5, tarifa_hora: 5500 }).insertedId;
-var zonaA3 = db.zonas.insertOne({ nombre: "Zona A3", sede_id: sedeNorteId, tipos_vehiculo: ["bicicleta"], capacidad: 8, cupos_disponibles: 8, tarifa_hora: 1000 }).insertedId;
-var zonaA4 = db.zonas.insertOne({ nombre: "Zona A4", sede_id: sedeNorteId, tipos_vehiculo: ["moto"], capacidad: 20, cupos_disponibles: 20, tarifa_hora: 1500 }).insertedId;
-var zonaA5 = db.zonas.insertOne({ nombre: "Zona A5", sede_id: sedeNorteId, tipos_vehiculo: ["cuatrimoto"], capacidad: 10, cupos_disponibles: 10, tarifa_hora: 2000 }).insertedId;
+// Insertar sedes con zonas embebidas
 
-var zonaB1 = db.zonas.insertOne({ nombre: "Zona B1", sede_id: sedeCentroId, tipos_vehiculo: ["carro"], capacidad: 10, cupos_disponibles: 10, tarifa_hora: 3000 }).insertedId;
-var zonaB2 = db.zonas.insertOne({ nombre: "Zona B2", sede_id: sedeCentroId, tipos_vehiculo: ["camion"], capacidad: 5, cupos_disponibles: 5, tarifa_hora: 6000 }).insertedId;
-var zonaB3 = db.zonas.insertOne({ nombre: "Zona B3", sede_id: sedeCentroId, tipos_vehiculo: ["vehiculoElectrico"], capacidad: 8, cupos_disponibles: 8, tarifa_hora: 2500 }).insertedId;
-var zonaB4 = db.zonas.insertOne({ nombre: "Zona B4", sede_id: sedeCentroId, tipos_vehiculo: ["moto"], capacidad: 20, cupos_disponibles: 20, tarifa_hora: 2000 }).insertedId;
-var zonaB5 = db.zonas.insertOne({ nombre: "Zona B5", sede_id: sedeCentroId, tipos_vehiculo: ["cuatrimoto"], capacidad: 10, cupos_disponibles: 10, tarifa_hora: 2500 }).insertedId;
+db.sedes.insertMany([
+  {
+    _id: sedeNorteId,
+    nombre: "Sede Norte",
+    direccion: "Cra. 45 #120-55",
+    ciudad: "Bogotá",
+    telefono: "3101112233",
+    zonas: [
+      { _id: zonaA1, nombre: "Zona A1", tipos_vehiculo: ["carro"], capacidad: 10, cupos_disponibles: 10, tarifa_hora: 2500 },
+      { _id: zonaA2, nombre: "Zona A2", tipos_vehiculo: ["camion"], capacidad: 5, cupos_disponibles: 5, tarifa_hora: 5500 },
+      { _id: zonaA3, nombre: "Zona A3", tipos_vehiculo: ["bicicleta"], capacidad: 8, cupos_disponibles: 8, tarifa_hora: 1000 },
+      { _id: zonaA4, nombre: "Zona A4", tipos_vehiculo: ["moto"], capacidad: 20, cupos_disponibles: 20, tarifa_hora: 1500 },
+      { _id: zonaA5, nombre: "Zona A5", tipos_vehiculo: ["cuatrimoto"], capacidad: 10, cupos_disponibles: 10, tarifa_hora: 2000 }
+    ]
+  },
+  {
+    _id: sedeCentroId,
+    nombre: "Sede Centro",
+    direccion: "Cl. 10 #35-20",
+    ciudad: "Medellín",
+    telefono: "3152469587",
+    zonas: [
+      { _id: zonaB1, nombre: "Zona B1", tipos_vehiculo: ["carro"], capacidad: 10, cupos_disponibles: 10, tarifa_hora: 3000 },
+      { _id: zonaB2, nombre: "Zona B2", tipos_vehiculo: ["camion"], capacidad: 5, cupos_disponibles: 5, tarifa_hora: 6000 },
+      { _id: zonaB3, nombre: "Zona B3", tipos_vehiculo: ["vehiculoElectrico"], capacidad: 8, cupos_disponibles: 8, tarifa_hora: 2500 },
+      { _id: zonaB4, nombre: "Zona B4", tipos_vehiculo: ["moto"], capacidad: 20, cupos_disponibles: 20, tarifa_hora: 2000 },
+      { _id: zonaB5, nombre: "Zona B5", tipos_vehiculo: ["cuatrimoto"], capacidad: 10, cupos_disponibles: 10, tarifa_hora: 2500 }
+    ]
+  },
+  {
+    _id: sedeSurId,
+    nombre: "Sede Sur",
+    direccion: "Av. Malpaso #80-15",
+    ciudad: "Cali",
+    telefono: "3153809684",
+    zonas: [
+      { _id: zonaC2, nombre: "Zona C2", tipos_vehiculo: ["camion"], capacidad: 25, cupos_disponibles: 25, tarifa_hora: 5000 },
+      { _id: zonaC1, nombre: "Zona C1", tipos_vehiculo: ["carro"], capacidad: 20, cupos_disponibles: 20, tarifa_hora: 2000 },
+      { _id: zonaC3, nombre: "Zona C3", tipos_vehiculo: ["bus"], capacidad: 15, cupos_disponibles: 15, tarifa_hora: 4200 },
+      { _id: zonaC4, nombre: "Zona C4", tipos_vehiculo: ["moto"], capacidad: 20, cupos_disponibles: 20, tarifa_hora: 1500 },
+      { _id: zonaC5, nombre: "Zona C5", tipos_vehiculo: ["furgoneta"], capacidad: 15, cupos_disponibles: 15, tarifa_hora: 2500 }
+    ]
+  }
+]);
 
-var zonaC1 = db.zonas.insertOne({ nombre: "Zona C1", sede_id: sedeSurId, tipos_vehiculo: ["carro"], capacidad: 20, cupos_disponibles: 20, tarifa_hora: 2000 }).insertedId;
-var zonaC2 = db.zonas.insertOne({ nombre: "Zona C2", sede_id: sedeSurId, tipos_vehiculo: ["camion"], capacidad: 25, cupos_disponibles: 25, tarifa_hora: 5000 }).insertedId;
-var zonaC3 = db.zonas.insertOne({ nombre: "Zona C3", sede_id: sedeSurId, tipos_vehiculo: ["bus"], capacidad: 15, cupos_disponibles: 15, tarifa_hora: 4200 }).insertedId;
-var zonaC4 = db.zonas.insertOne({ nombre: "Zona C4", sede_id: sedeSurId, tipos_vehiculo: ["moto"], capacidad: 20, cupos_disponibles: 20, tarifa_hora: 1500 }).insertedId;
-var zonaC5 = db.zonas.insertOne({ nombre: "Zona C5", sede_id: sedeSurId, tipos_vehiculo: ["furgoneta"], capacidad: 15, cupos_disponibles: 15, tarifa_hora: 2500 }).insertedId;
 
 // ==============================
 // Insertar USUARIOS - ADMINISTRADORES
@@ -53,522 +97,729 @@ var empleado8 = db.usuarios.insertOne({ nombre: "Valentina López", cedula: "100
 var empleado9 = db.usuarios.insertOne({ nombre: "David Gómez", cedula: "1004000009", email: "david@sur.com", rol: "empleado", clave: "empleado123", sede_id: sedeSurId, fecha_creacion: new Date("2024-03-20"), suscripcion: null }).insertedId;
 
 // ==============================
-// Insertar USUARIOS - CLIENTES (15 clientes con suscripciones)
+// Insertar USUARIOS - CLIENTES CON VEHICULOS EMBEBIDOS
 // ==============================
 
-var cliente1Id = db.usuarios.insertOne({ nombre: "Ana Torres", cedula: "1010000001", email: "ana@cliente.com", rol: "cliente", clave: null, sede_id: sedeCentroId, fecha_creacion: new Date("2024-04-01"), suscripcion: { tipo: "mensual" } }).insertedId;
-var cliente2Id = db.usuarios.insertOne({ nombre: "Jorge Peña", cedula: "1010000002", email: "jorge@cliente.com", rol: "cliente", clave: null, sede_id: sedeCentroId, fecha_creacion: new Date("2024-04-02"), suscripcion: { tipo: "diario" } }).insertedId;
-var cliente3Id = db.usuarios.insertOne({ nombre: "Camila Silva", cedula: "1010000003", email: "camila@cliente.com", rol: "cliente", clave: null, sede_id: sedeNorteId, fecha_creacion: new Date("2024-04-03"), suscripcion: { tipo: "anual" } }).insertedId;
-var cliente4Id = db.usuarios.insertOne({ nombre: "Andrés Molina", cedula: "1010000004", email: "andres@cliente.com", rol: "cliente", clave: null, sede_id: sedeSurId, fecha_creacion: new Date("2024-04-04"), suscripcion: null }).insertedId;
-var cliente5Id = db.usuarios.insertOne({ nombre: "Karen Díaz", cedula: "1010000005", email: "karen@cliente.com", rol: "cliente", clave: null, sede_id: sedeNorteId, fecha_creacion: new Date("2024-04-05"), suscripcion: { tipo: "trimestral" } }).insertedId;
-var cliente6Id = db.usuarios.insertOne({ nombre: "Esteban Rico", cedula: "1010000006", email: "esteban@cliente.com", rol: "cliente", clave: null, sede_id: sedeSurId, fecha_creacion: new Date("2024-04-06"), suscripcion: { tipo: "mensual" } }).insertedId;
-var cliente7Id = db.usuarios.insertOne({ nombre: "Natalia Garzón", cedula: "1010000007", email: "natalia@cliente.com", rol: "cliente", clave: null, sede_id: sedeCentroId, fecha_creacion: new Date("2024-04-07"), suscripcion: null }).insertedId;
-var cliente8Id = db.usuarios.insertOne({ nombre: "Pedro Barrios", cedula: "1010000008", email: "pedro@cliente.com", rol: "cliente", clave: null, sede_id: sedeCentroId, fecha_creacion: new Date("2024-04-08"), suscripcion: { tipo: "semestral" } }).insertedId;
-var cliente9Id = db.usuarios.insertOne({ nombre: "Melissa Rojas", cedula: "1010000009", email: "melissa@cliente.com", rol: "cliente", clave: null, sede_id: sedeNorteId, fecha_creacion: new Date("2024-04-09"), suscripcion: null }).insertedId;
-var cliente10Id = db.usuarios.insertOne({ nombre: "Carlos Mendoza", cedula: "1010000010", email: "carlos@cliente.com", rol: "cliente", clave: null, sede_id: sedeSurId, fecha_creacion: new Date("2024-04-10"), suscripcion: null }).insertedId;
-var cliente11Id = db.usuarios.insertOne({ nombre: "Lucía Páez", cedula: "1010000011", email: "lucia@cliente.com", rol: "cliente", clave: null, sede_id: sedeCentroId, fecha_creacion: new Date("2024-04-11"), suscripcion: { tipo: "anual" } }).insertedId;
-var cliente12Id = db.usuarios.insertOne({ nombre: "Mario Cortés", cedula: "1010000012", email: "mario@cliente.com", rol: "cliente", clave: null, sede_id: sedeNorteId, fecha_creacion: new Date("2024-04-12"), suscripcion: { tipo: "mensual" } }).insertedId;
-var cliente13Id = db.usuarios.insertOne({ nombre: "Laura Niño", cedula: "1010000013", email: "laura@cliente.com", rol: "cliente", clave: null, sede_id: sedeSurId, fecha_creacion: new Date("2024-04-13"), suscripcion: { tipo: "semanal" } }).insertedId;
-var cliente14Id = db.usuarios.insertOne({ nombre: "Diego Suárez", cedula: "1010000014", email: "diego@cliente.com", rol: "cliente", clave: null, sede_id: sedeNorteId, fecha_creacion: new Date("2024-04-14"), suscripcion: null }).insertedId;
-var cliente15Id = db.usuarios.insertOne({ nombre: "Sara Mejía", cedula: "1010000015", email: "sara@cliente.com", rol: "cliente", clave: null, sede_id: sedeCentroId, fecha_creacion: new Date("2024-04-15"), suscripcion: { tipo: "mensual" } }).insertedId;
-
-
-
-// ==============================
-// Insertar VEHICULOS
-// ==============================
-
-
-var vehiculo1 = db.vehiculos.insertOne({ tipo: "camion", marca: "Hino", modelo: "300", usuario_id: cliente1Id, placa: "TXU997" }).insertedId;
-var vehiculo2 = db.vehiculos.insertOne({ tipo: "bicicleta", marca: "Trek", modelo: "Marlin", usuario_id: cliente2Id, placa: null }).insertedId;
-var vehiculo3 = db.vehiculos.insertOne({ tipo: "carro", marca: "Toyota", modelo: "Corolla", usuario_id: cliente3Id, placa: "WFV378" }).insertedId;
-var vehiculo4 = db.vehiculos.insertOne({ tipo: "bus", marca: "Volkswagen", modelo: "9-150", usuario_id: cliente4Id, placa: "XHU161" }).insertedId;
-var vehiculo5 = db.vehiculos.insertOne({ tipo: "carro", marca: "Toyota", modelo: "Corolla", usuario_id: cliente5Id, placa: "WZQ423" }).insertedId;
-var vehiculo6 = db.vehiculos.insertOne({ tipo: "moto", marca: "Yamaha", modelo: "FZ 2.0", usuario_id: cliente1Id, placa: "YMC21F" }).insertedId;
-var vehiculo7 = db.vehiculos.insertOne({ tipo: "carro", marca: "Mazda", modelo: "3", usuario_id: cliente2Id, placa: "RDF345" }).insertedId;
-var vehiculo8 = db.vehiculos.insertOne({ tipo: "vehiculoElectrico", marca: "Tesla", modelo: "Model 3", usuario_id: cliente3Id, placa: "VHN832" }).insertedId;
-var vehiculo9 = db.vehiculos.insertOne({ tipo: "cuatrimoto", marca: "Can-Am", modelo: "Outlander", usuario_id: cliente4Id, placa: "HTR32M" }).insertedId;
-var vehiculo10 = db.vehiculos.insertOne({ tipo: "bicicleta", marca: "Specialized", modelo: "Rockhopper", usuario_id: cliente5Id, placa: null }).insertedId;
-var vehiculo11 = db.vehiculos.insertOne({ tipo: "camion", marca: "Chevrolet", modelo: "NHR", usuario_id: cliente6Id, placa: "LPR134" }).insertedId;
-var vehiculo12 = db.vehiculos.insertOne({ tipo: "furgoneta", marca: "Renault", modelo: "Kangoo", usuario_id: cliente6Id, placa: "PTV490" }).insertedId;
-var vehiculo13 = db.vehiculos.insertOne({ tipo: "moto", marca: "AKT", modelo: "NKD 125", usuario_id: cliente7Id, placa: "AKT91C" }).insertedId;
-var vehiculo14 = db.vehiculos.insertOne({ tipo: "carro", marca: "Kia", modelo: "Picanto", usuario_id: cliente15Id, placa: "FRH920" }).insertedId;
-var vehiculo15 = db.vehiculos.insertOne({ tipo: "carro", marca: "Chevrolet", modelo: "Sail", usuario_id: cliente8Id, placa: "YUL763" }).insertedId;
-var vehiculo16 = db.vehiculos.insertOne({ tipo: "vehiculoElectrico", marca: "BYD", modelo: "Dolphin", usuario_id: cliente8Id, placa: "EQC124" }).insertedId;
-var vehiculo17 = db.vehiculos.insertOne({ tipo: "bicicleta", marca: "Giant", modelo: "Talon 3", usuario_id: cliente9Id, placa: null }).insertedId;
-var vehiculo18 = db.vehiculos.insertOne({ tipo: "carro", marca: "Hyundai", modelo: "i20", usuario_id: cliente9Id, placa: "HTW823" }).insertedId;
-var vehiculo19 = db.vehiculos.insertOne({ tipo: "moto", marca: "Suzuki", modelo: "Gixxer", usuario_id: cliente10Id, placa: "SUZ63N" }).insertedId;
-var vehiculo20 = db.vehiculos.insertOne({ tipo: "camion", marca: "Dongfeng", modelo: "DFL3251A", usuario_id: cliente10Id, placa: "KYZ772" }).insertedId;
-var vehiculo21 = db.vehiculos.insertOne({ tipo: "carro", marca: "Nissan", modelo: "Versa", usuario_id: cliente11Id, placa: "CVP638" }).insertedId;
-var vehiculo22 = db.vehiculos.insertOne({ tipo: "bus", marca: "Mercedes-Benz", modelo: "O500", usuario_id: cliente11Id, placa: "VXZ920" }).insertedId;
-var vehiculo23 = db.vehiculos.insertOne({ tipo: "cuatrimoto", marca: "Yamaha", modelo: "Raptor 700", usuario_id: cliente12Id, placa: "QUA39G" }).insertedId;
-var vehiculo24 = db.vehiculos.insertOne({ tipo: "carro", marca: "Ford", modelo: "Focus", usuario_id: cliente12Id, placa: "PQR271" }).insertedId;
-var vehiculo25 = db.vehiculos.insertOne({ tipo: "carro", marca: "Peugeot", modelo: "208", usuario_id: cliente13Id, placa: "JLU991" }).insertedId;
-var vehiculo26 = db.vehiculos.insertOne({ tipo: "moto", marca: "Bajaj", modelo: "Pulsar", usuario_id: cliente13Id, placa: "BAJ82T" }).insertedId;
-var vehiculo27 = db.vehiculos.insertOne({ tipo: "furgoneta", marca: "Fiat", modelo: "Doblo", usuario_id: cliente14Id, placa: "FGT781" }).insertedId;
-var vehiculo28 = db.vehiculos.insertOne({ tipo: "bicicleta", marca: "Scott", modelo: "Aspect", usuario_id: cliente14Id, placa: null }).insertedId;
-var vehiculo29 = db.vehiculos.insertOne({ tipo: "vehiculoElectrico", marca: "Zhidou", modelo: "D2S", usuario_id: cliente15Id, placa: "EVN442" }).insertedId;
-var vehiculo30 = db.vehiculos.insertOne({ tipo: "carro", marca: "Renault", modelo: "Stepway", usuario_id: cliente15Id, placa: "TRZ310" }).insertedId;
+db.usuarios.insertMany([
+  {
+    nombre: "Ana Torres",
+    cedula: "1010000001",
+    email: "ana@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeCentroId,
+    fecha_creacion: new Date("2024-04-01"),
+    suscripcion: { tipo: "mensual" },
+    vehiculos: [
+      { tipo: "camion", marca: "Hino", modelo: "300", placa: "TXU997" },
+      { tipo: "moto", marca: "Yamaha", modelo: "FZ 2.0", placa: "YMC21F" }
+    ]
+  },
+  {
+    nombre: "Jorge Peña",
+    cedula: "1010000002",
+    email: "jorge@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeCentroId,
+    fecha_creacion: new Date("2024-04-02"),
+    suscripcion: { tipo: "diario" },
+    vehiculos: [
+      { tipo: "bicicleta", marca: "Trek", modelo: "Marlin", placa: null },
+      { tipo: "carro", marca: "Mazda", modelo: "3", placa: "RDF345" }
+    ]
+  },
+  {
+    nombre: "Camila Silva",
+    cedula: "1010000003",
+    email: "camila@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeNorteId,
+    fecha_creacion: new Date("2024-04-03"),
+    suscripcion: { tipo: "anual" },
+    vehiculos: [
+      { tipo: "carro", marca: "Toyota", modelo: "Corolla", placa: "WFV378" },
+      { tipo: "vehiculoElectrico", marca: "Tesla", modelo: "Model 3", placa: "VHN832" }
+    ]
+  },
+  {
+    nombre: "Andrés Molina",
+    cedula: "1010000004",
+    email: "andres@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeSurId,
+    fecha_creacion: new Date("2024-04-04"),
+    suscripcion: null,
+    vehiculos: [
+      { tipo: "bus", marca: "Volkswagen", modelo: "9-150", placa: "XHU161" },
+      { tipo: "cuatrimoto", marca: "Can-Am", modelo: "Outlander", placa: "HTR32M" }
+    ]
+  },
+  {
+    nombre: "Karen Díaz",
+    cedula: "1010000005",
+    email: "karen@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeNorteId,
+    fecha_creacion: new Date("2024-04-05"),
+    suscripcion: { tipo: "trimestral" },
+    vehiculos: [
+      { tipo: "carro", marca: "Toyota", modelo: "Corolla", placa: "WZQ423" },
+      { tipo: "bicicleta", marca: "Specialized", modelo: "Rockhopper", placa: null }
+    ]
+  },
+  {
+    nombre: "Esteban Rico",
+    cedula: "1010000006",
+    email: "esteban@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeSurId,
+    fecha_creacion: new Date("2024-04-06"),
+    suscripcion: { tipo: "mensual" },
+    vehiculos: [
+      { tipo: "camion", marca: "Chevrolet", modelo: "NHR", placa: "LPR134" },
+      { tipo: "furgoneta", marca: "Renault", modelo: "Kangoo", placa: "PTV490" }
+    ]
+  },
+  {
+    nombre: "Natalia Garzón",
+    cedula: "1010000007",
+    email: "natalia@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeCentroId,
+    fecha_creacion: new Date("2024-04-07"),
+    suscripcion: null,
+    vehiculos: [
+      { tipo: "moto", marca: "AKT", modelo: "NKD 125", placa: "AKT91C" }
+    ]
+  },
+  {
+    nombre: "Pedro Barrios",
+    cedula: "1010000008",
+    email: "pedro@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeCentroId,
+    fecha_creacion: new Date("2024-04-08"),
+    suscripcion: { tipo: "semestral" },
+    vehiculos: [
+      { tipo: "carro", marca: "Chevrolet", modelo: "Sail", placa: "YUL763" },
+      { tipo: "vehiculoElectrico", marca: "BYD", modelo: "Dolphin", placa: "EQC124" }
+    ]
+  },
+  {
+    nombre: "Melissa Rojas",
+    cedula: "1010000009",
+    email: "melissa@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeNorteId,
+    fecha_creacion: new Date("2024-04-09"),
+    suscripcion: null,
+    vehiculos: [
+      { tipo: "bicicleta", marca: "Giant", modelo: "Talon 3", placa: null },
+      { tipo: "carro", marca: "Hyundai", modelo: "i20", placa: "HTW823" }
+    ]
+  },
+  {
+    nombre: "Carlos Mendoza",
+    cedula: "1010000010",
+    email: "carlos@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeSurId,
+    fecha_creacion: new Date("2024-04-10"),
+    suscripcion: null,
+    vehiculos: [
+      { tipo: "moto", marca: "Suzuki", modelo: "Gixxer", placa: "SUZ63N" },
+      { tipo: "camion", marca: "Dongfeng", modelo: "DFL3251A", placa: "KYZ772" }
+    ]
+  },
+  {
+    nombre: "Lucía Páez",
+    cedula: "1010000011",
+    email: "lucia@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeCentroId,
+    fecha_creacion: new Date("2024-04-11"),
+    suscripcion: { tipo: "anual" },
+    vehiculos: [
+      { tipo: "carro", marca: "Nissan", modelo: "Versa", placa: "CVP638" },
+      { tipo: "bus", marca: "Mercedes-Benz", modelo: "O500", placa: "VXZ920" }
+    ]
+  },
+  {
+    nombre: "Mario Cortés",
+    cedula: "1010000012",
+    email: "mario@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeNorteId,
+    fecha_creacion: new Date("2024-04-12"),
+    suscripcion: { tipo: "mensual" },
+    vehiculos: [
+      { tipo: "cuatrimoto", marca: "Yamaha", modelo: "Raptor 700", placa: "QUA39G" },
+      { tipo: "carro", marca: "Ford", modelo: "Focus", placa: "PQR271" }
+    ]
+  },
+  {
+    nombre: "Laura Niño",
+    cedula: "1010000013",
+    email: "laura@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeSurId,
+    fecha_creacion: new Date("2024-04-13"),
+    suscripcion: { tipo: "semanal" },
+    vehiculos: [
+      { tipo: "carro", marca: "Peugeot", modelo: "208", placa: "JLU991" },
+      { tipo: "moto", marca: "Bajaj", modelo: "Pulsar", placa: "BAJ82T" }
+    ]
+  },
+  {
+    nombre: "Diego Suárez",
+    cedula: "1010000014",
+    email: "diego@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeNorteId,
+    fecha_creacion: new Date("2024-04-14"),
+    suscripcion: null,
+    vehiculos: [
+      { tipo: "furgoneta", marca: "Fiat", modelo: "Doblo", placa: "FGT781" },
+      { tipo: "bicicleta", marca: "Scott", modelo: "Aspect", placa: null }
+    ]
+  },
+  {
+    nombre: "Sara Mejía",
+    cedula: "1010000015",
+    email: "sara@cliente.com",
+    rol: "cliente",
+    clave: null,
+    sede_id: sedeCentroId,
+    fecha_creacion: new Date("2024-04-15"),
+    suscripcion: { tipo: "mensual" },
+    vehiculos: [
+      { tipo: "carro", marca: "Kia", modelo: "Picanto", placa: "FRH920" },
+      { tipo: "vehiculoElectrico", marca: "Zhidou", modelo: "D2S", placa: "EVN442" },
+      { tipo: "carro", marca: "Renault", modelo: "Stepway", placa: "TRZ310" }
+    ]
+  }
+]);
 
 // ==============================
 // Insertar PARQUEOS
 // ==============================
 
+// ==============================
+// Insertar PARQUEOS (50 registros, denormalización parcial)
+// ==============================
 db.parqueos.insertMany([
   {
-    vehiculo_id: vehiculo1,
-    sede_id: sedeNorteId,
-    zona_id: zonaA2,
-    hora_entrada: new Date("2025-06-10T07:15:00Z"),
-    hora_salida: new Date("2025-06-10T09:45:00Z"),
-    tiempo_total_min: 150,
-    costo: 13750.0
+    placa: "EVN442",
+    tipo_vehiculo: "vehiculoElectrico",
+    sede_id: sedeSurId,
+    zona_id: zonaC3,
+    hora_entrada: new Date("2025-07-06T14:08:00-05:00"),
+    hora_salida: new Date("2025-07-06T16:14:00-05:00"),
+    tiempo_total_min: 126,
+    costo: 8820.0
   },
   {
-    vehiculo_id: vehiculo2,
+    placa: "YUL763",
+    tipo_vehiculo: "carro",
+    sede_id: sedeSurId,
+    zona_id: zonaC1,
+    hora_entrada: new Date("2025-07-02T09:10:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "EQC124",
+    tipo_vehiculo: "vehiculoElectrico",
+    sede_id: sedeCentroId,
+    zona_id: zonaB3,
+    hora_entrada: new Date("2025-07-02T10:30:00-05:00"),
+    hora_salida: new Date("2025-07-02T13:27:00-05:00"),
+    tiempo_total_min: 177,
+    costo: 7375.0
+  },
+  {
+    placa: "BAJ82T",
+    tipo_vehiculo: "moto",
     sede_id: sedeNorteId,
-    zona_id: zonaA3,
-    hora_entrada: new Date("2025-06-11T09:00:00Z"),
-    hora_salida: new Date("2025-06-11T09:45:00Z"),
+    zona_id: zonaA4,
+    hora_entrada: new Date("2025-07-11T09:43:00-05:00"),
+    hora_salida: new Date("2025-07-11T12:37:00-05:00"),
+    tiempo_total_min: 174,
+    costo: 4350.0
+  },
+  {
+    placa: "CVP638",
+    tipo_vehiculo: "carro",
+    sede_id: sedeNorteId,
+    zona_id: zonaA1,
+    hora_entrada: new Date("2025-07-03T16:27:00-05:00"),
+    hora_salida: new Date("2025-07-03T17:40:00-05:00"),
+    tiempo_total_min: 73,
+    costo: 3041.67
+  },
+  {
+    placa: "WFV378",
+    tipo_vehiculo: "carro",
+    sede_id: sedeNorteId,
+    zona_id: zonaA1,
+    hora_entrada: new Date("2025-07-03T14:42:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "LPR134",
+    tipo_vehiculo: "camion",
+    sede_id: sedeSurId,
+    zona_id: zonaC2,
+    hora_entrada: new Date("2025-07-05T13:08:00-05:00"),
+    hora_salida: new Date("2025-07-05T14:00:00-05:00"),
+    tiempo_total_min: 52,
+    costo: 4333.33
+  },
+  {
+    placa: "BAJ82T",
+    tipo_vehiculo: "moto",
+    sede_id: sedeNorteId,
+    zona_id: zonaA4,
+    hora_entrada: new Date("2025-07-07T12:57:00-05:00"),
+    hora_salida: new Date("2025-07-07T15:01:00-05:00"),
+    tiempo_total_min: 124,
+    costo: 3100.0
+  },
+  {
+    placa: "HTR32M",
+    tipo_vehiculo: "cuatrimoto",
+    sede_id: sedeCentroId,
+    zona_id: zonaB5,
+    hora_entrada: new Date("2025-07-07T12:35:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "VXZ920",
+    tipo_vehiculo: "bus",
+    sede_id: sedeSurId,
+    zona_id: zonaC3,
+    hora_entrada: new Date("2025-07-09T12:36:00-05:00"),
+    hora_salida: new Date("2025-07-09T13:21:00-05:00"),
     tiempo_total_min: 45,
-    costo: 750.0
+    costo: 3150.0
   },
   {
-    vehiculo_id: vehiculo3,
+    placa: "HTR32M",
+    tipo_vehiculo: "cuatrimoto",
+    sede_id: sedeCentroId,
+    zona_id: zonaB5,
+    hora_entrada: new Date("2025-07-10T07:29:00-05:00"),
+    hora_salida: new Date("2025-07-10T09:19:00-05:00"),
+    tiempo_total_min: 110,
+    costo: 4583.33
+  },
+  {
+    placa: "EQC124",
+    tipo_vehiculo: "vehiculoElectrico",
+    sede_id: sedeCentroId,
+    zona_id: zonaB3,
+    hora_entrada: new Date("2025-07-01T08:49:00-05:00"),
+    hora_salida: new Date("2025-07-01T10:37:00-05:00"),
+    tiempo_total_min: 108,
+    costo: 4500.0
+  },
+  {
+    placa: "QUA39G",
+    tipo_vehiculo: "cuatrimoto",
+    sede_id: sedeCentroId,
+    zona_id: zonaB5,
+    hora_entrada: new Date("2025-07-02T06:06:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "KYZ772",
+    tipo_vehiculo: "camion",
+    sede_id: sedeSurId,
+    zona_id: zonaC2,
+    hora_entrada: new Date("2025-07-05T10:40:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "RDF345",
+    tipo_vehiculo: "carro",
     sede_id: sedeCentroId,
     zona_id: zonaB1,
-    hora_entrada: new Date("2025-06-10T08:00:00Z"),
-    hora_salida: new Date("2025-06-10T10:00:00Z"),
-    tiempo_total_min: 120,
-    costo: 6000.0
+    hora_entrada: new Date("2025-07-10T10:33:00-05:00"),
+    hora_salida: new Date("2025-07-10T13:32:00-05:00"),
+    tiempo_total_min: 179,
+    costo: 8950.0
   },
   {
-    vehiculo_id: vehiculo4,
+    placa: "EVN442",
+    tipo_vehiculo: "vehiculoElectrico",
+    sede_id: sedeSurId,
+    zona_id: zonaC3,
+    hora_entrada: new Date("2025-07-01T10:43:00-05:00"),
+    hora_salida: new Date("2025-07-01T12:58:00-05:00"),
+    tiempo_total_min: 135,
+    costo: 9450.0
+  },
+  {
+    placa: "FRH920",
+    tipo_vehiculo: "carro",
+    sede_id: sedeCentroId,
+    zona_id: zonaB1,
+    hora_entrada: new Date("2025-07-08T10:40:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "LPR134",
+    tipo_vehiculo: "camion",
+    sede_id: sedeSurId,
+    zona_id: zonaC2,
+    hora_entrada: new Date("2025-07-08T07:36:00-05:00"),
+    hora_salida: new Date("2025-07-08T08:35:00-05:00"),
+    tiempo_total_min: 59,
+    costo: 4916.67
+  },
+  {
+    placa: "CVP638",
+    tipo_vehiculo: "carro",
+    sede_id: sedeNorteId,
+    zona_id: zonaA1,
+    hora_entrada: new Date("2025-07-08T09:09:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "JLU991",
+    tipo_vehiculo: "carro",
+    sede_id: sedeSurId,
+    zona_id: zonaC1,
+    hora_entrada: new Date("2025-07-06T09:39:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "AKT91C",
+    tipo_vehiculo: "moto",
+    sede_id: sedeCentroId,
+    zona_id: zonaB4,
+    hora_entrada: new Date("2025-07-05T15:37:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "TRZ310",
+    tipo_vehiculo: "carro",
+    sede_id: sedeNorteId,
+    zona_id: zonaA1,
+    hora_entrada: new Date("2025-07-01T09:20:00-05:00"),
+    hora_salida: new Date("2025-07-01T12:08:00-05:00"),
+    tiempo_total_min: 168,
+    costo: 7000.0
+  },
+  {
+    placa: "LPR134",
+    tipo_vehiculo: "camion",
+    sede_id: sedeSurId,
+    zona_id: zonaC2,
+    hora_entrada: new Date("2025-07-07T17:39:00-05:00"),
+    hora_salida: new Date("2025-07-07T20:19:00-05:00"),
+    tiempo_total_min: 160,
+    costo: 13333.33
+  },
+  {
+    placa: "HTW823",
+    tipo_vehiculo: "carro",
+    sede_id: sedeNorteId,
+    zona_id: zonaA1,
+    hora_entrada: new Date("2025-07-04T17:59:00-05:00"),
+    hora_salida: new Date("2025-07-04T19:50:00-05:00"),
+    tiempo_total_min: 111,
+    costo: 4625.0
+  },
+  {
+    placa: "TXU997",
+    tipo_vehiculo: "camion",
+    sede_id: sedeCentroId,
+    zona_id: zonaB2,
+    hora_entrada: new Date("2025-07-10T17:36:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "HTR32M",
+    tipo_vehiculo: "cuatrimoto",
+    sede_id: sedeCentroId,
+    zona_id: zonaB5,
+    hora_entrada: new Date("2025-07-09T13:29:00-05:00"),
+    hora_salida: new Date("2025-07-09T15:30:00-05:00"),
+    tiempo_total_min: 121,
+    costo: 5041.67
+  },
+  {
+    placa: "HTW823",
+    tipo_vehiculo: "carro",
+    sede_id: sedeNorteId,
+    zona_id: zonaA1,
+    hora_entrada: new Date("2025-07-05T07:16:00-05:00"),
+    hora_salida: new Date("2025-07-05T09:02:00-05:00"),
+    tiempo_total_min: 106,
+    costo: 4416.67
+  },
+  {
+    placa: "VHN832",
+    tipo_vehiculo: "vehiculoElectrico",
+    sede_id: sedeCentroId,
+    zona_id: zonaB3,
+    hora_entrada: new Date("2025-07-11T15:38:00-05:00"),
+    hora_salida: new Date("2025-07-11T17:12:00-05:00"),
+    tiempo_total_min: 94,
+    costo: 3916.67
+  },
+  {
+    placa: "VHN832",
+    tipo_vehiculo: "vehiculoElectrico",
+    sede_id: sedeCentroId,
+    zona_id: zonaB3,
+    hora_entrada: new Date("2025-07-11T17:16:00-05:00"),
+    hora_salida: new Date("2025-07-11T18:35:00-05:00"),
+    tiempo_total_min: 79,
+    costo: 3291.67
+  },
+  {
+    placa: "KYZ772",
+    tipo_vehiculo: "camion",
+    sede_id: sedeSurId,
+    zona_id: zonaC2,
+    hora_entrada: new Date("2025-07-05T08:44:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "JLU991",
+    tipo_vehiculo: "carro",
+    sede_id: sedeSurId,
+    zona_id: zonaC1,
+    hora_entrada: new Date("2025-07-03T18:17:00-05:00"),
+    hora_salida: new Date("2025-07-03T20:32:00-05:00"),
+    tiempo_total_min: 135,
+    costo: 4500.0
+  },
+  {
+    placa: "KYZ772",
+    tipo_vehiculo: "camion",
+    sede_id: sedeSurId,
+    zona_id: zonaC2,
+    hora_entrada: new Date("2025-07-07T11:43:00-05:00"),
+    hora_salida: new Date("2025-07-07T13:39:00-05:00"),
+    tiempo_total_min: 116,
+    costo: 9666.67
+  },
+  {
+    placa: "VXZ920",
+    tipo_vehiculo: "bus",
+    sede_id: sedeSurId,
+    zona_id: zonaC3,
+    hora_entrada: new Date("2025-07-02T08:01:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "FGT781",
+    tipo_vehiculo: "furgoneta",
+    sede_id: sedeCentroId,
+    zona_id: zonaB5,
+    hora_entrada: new Date("2025-07-05T15:57:00-05:00"),
+    hora_salida: new Date("2025-07-05T16:29:00-05:00"),
+    tiempo_total_min: 32,
+    costo: 1333.33
+  },
+  {
+    placa: "SUZ63N",
+    tipo_vehiculo: "moto",
     sede_id: sedeSurId,
     zona_id: zonaC4,
-    hora_entrada: new Date("2025-06-12T07:30:00Z"),
-    hora_salida: new Date("2025-06-12T08:30:00Z"),
-    tiempo_total_min: 60,
-    costo: 4000.0
+    hora_entrada: new Date("2025-07-10T08:33:00-05:00"),
+    hora_salida: new Date("2025-07-10T09:32:00-05:00"),
+    tiempo_total_min: 59,
+    costo: 1475.0
   },
   {
-    vehiculo_id: vehiculo5,
-    sede_id: sedeCentroId,
-    zona_id: zonaB1,
-    hora_entrada: new Date("2025-06-12T10:00:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-  {
-    vehiculo_id: vehiculo6,
-    sede_id: sedeNorteId,
-    zona_id: zonaA4,
-    hora_entrada: new Date("2025-06-13T11:00:00Z"),
-    hora_salida: new Date("2025-06-13T12:15:00Z"),
-    tiempo_total_min: 75,
-    costo: 1875.0
-  },
-  {
-    vehiculo_id: vehiculo7,
-    sede_id: sedeCentroId,
-    zona_id: zonaB1,
-    hora_entrada: new Date("2025-06-13T14:00:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-  {
-    vehiculo_id: vehiculo8,
-    sede_id: sedeCentroId,
-    zona_id: zonaB3,
-    hora_entrada: new Date("2025-06-13T08:45:00Z"),
-    hora_salida: new Date("2025-06-13T09:45:00Z"),
-    tiempo_total_min: 60,
-    costo: 2500.0
-  },
-  {
-    vehiculo_id: vehiculo9,
-    sede_id: sedeCentroId,
-    zona_id: zonaB5,
-    hora_entrada: new Date("2025-06-14T10:00:00Z"),
-    hora_salida: new Date("2025-06-14T11:30:00Z"),
-    tiempo_total_min: 90,
-    costo: 3750.0
-  },
-  {
-    vehiculo_id: vehiculo10,
-    sede_id: sedeNorteId,
-    zona_id: zonaA3,
-    hora_entrada: new Date("2025-06-14T07:30:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-    {
-    vehiculo_id: vehiculo11,
+    placa: "VXZ920",
+    tipo_vehiculo: "bus",
     sede_id: sedeSurId,
-    zona_id: zonaC2,
-    hora_entrada: new Date("2025-06-14T12:00:00Z"),
-    hora_salida: new Date("2025-06-14T13:30:00Z"),
-    tiempo_total_min: 90,
-    costo: 7750.0
-  },
-  {
-    vehiculo_id: vehiculo12,
-    sede_id: sedeSurId,
-    zona_id: zonaC5,
-    hora_entrada: new Date("2025-06-15T09:00:00Z"),
-    hora_salida: new Date("2025-06-15T10:15:00Z"),
-    tiempo_total_min: 75,
-    costo: 2800.0
-  },
-  {
-    vehiculo_id: vehiculo13,
-    sede_id: sedeCentroId,
-    zona_id: zonaB4,
-    hora_entrada: new Date("2025-06-15T11:30:00Z"),
-    hora_salida: new Date("2025-06-15T12:00:00Z"),
-    tiempo_total_min: 30,
-    costo: 1000.0
-  },
-  {
-    vehiculo_id: vehiculo14,
-    sede_id: sedeCentroId,
-    zona_id: zonaB1,
-    hora_entrada: new Date("2025-06-15T14:00:00Z"),
-    hora_salida: new Date("2025-06-15T15:00:00Z"),
-    tiempo_total_min: 60,
-    costo: 3000.0
-  },
-  {
-    vehiculo_id: vehiculo15,
-    sede_id: sedeSurId,
-    zona_id: zonaC1,
-    hora_entrada: new Date("2025-06-16T08:00:00Z"),
-    hora_salida: new Date("2025-06-16T09:30:00Z"),
-    tiempo_total_min: 90,
-    costo: 3000.0
-  },
-  {
-    vehiculo_id: vehiculo16,
-    sede_id: sedeCentroId,
-    zona_id: zonaB3,
-    hora_entrada: new Date("2025-06-16T10:30:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-  {
-    vehiculo_id: vehiculo17,
-    sede_id: sedeNorteId,
-    zona_id: zonaA3,
-    hora_entrada: new Date("2025-06-16T11:00:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-  {
-    vehiculo_id: vehiculo18,
-    sede_id: sedeNorteId,
-    zona_id: zonaA1,
-    hora_entrada: new Date("2025-06-16T11:15:00Z"),
-    hora_salida: new Date("2025-06-16T12:45:00Z"),
-    tiempo_total_min: 90,
-    costo: 4500.0
-  },
-  {
-    vehiculo_id: vehiculo19,
-    sede_id: sedeCentroId,
-    zona_id: zonaB4,
-    hora_entrada: new Date("2025-06-16T13:00:00Z"),
-    hora_salida: new Date("2025-06-16T14:00:00Z"),
-    tiempo_total_min: 60,
-    costo: 1500.0
-  },
-  {
-    vehiculo_id: vehiculo20,
-    sede_id: sedeSurId,
-    zona_id: zonaC2,
-    hora_entrada: new Date("2025-06-17T08:30:00Z"),
-    hora_salida: new Date("2025-06-17T10:30:00Z"),
-    tiempo_total_min: 120,
-    costo: 10000.0
-  },
-  {
-    vehiculo_id: vehiculo21,
-    sede_id: sedeNorteId,
-    zona_id: zonaA1,
-    hora_entrada: new Date("2025-06-17T09:15:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-  {
-    vehiculo_id: vehiculo23,
-    sede_id: sedeCentroId,
     zona_id: zonaC3,
-    hora_entrada: new Date("2025-06-17T10:45:00Z"),
-    hora_salida: new Date("2025-06-17T12:00:00Z"),
-    tiempo_total_min: 75,
-    costo: 5250.0
-  },
-  {
-    vehiculo_id: vehiculo23,
-    sede_id: sedeSurId,
-    zona_id: zonaB5,
-    hora_entrada: new Date("2025-06-17T13:00:00Z"),
-    hora_salida: new Date("2025-06-17T13:45:00Z"),
-    tiempo_total_min: 45,
-    costo: 1875.0
-  },
-  {
-    vehiculo_id: vehiculo24,
-    sede_id: sedeCentroId,
-    zona_id: zonaB1,
-    hora_entrada: new Date("2025-06-17T14:30:00Z"),
+    hora_entrada: new Date("2025-07-07T17:38:00-05:00"),
     hora_salida: null,
     tiempo_total_min: null,
     costo: null
   },
   {
-    vehiculo_id: vehiculo25,
-    sede_id: sedeSurId,
-    zona_id: zonaC1,
-    hora_entrada: new Date("2025-06-17T15:00:00Z"),
-    hora_salida: new Date("2025-06-17T16:30:00Z"),
-    tiempo_total_min: 90,
-    costo: 4500.0
-  },
-  {
-    vehiculo_id: vehiculo26,
-    sede_id: sedeNorteId,
-    zona_id: zonaA4,
-    hora_entrada: new Date("2025-06-18T08:00:00Z"),
-    hora_salida: new Date("2025-06-18T09:00:00Z"),
-    tiempo_total_min: 60,
-    costo: 1500.0
-  },
-  {
-    vehiculo_id: vehiculo27,
-    sede_id: sedeCentroId,
-    zona_id: zonaC5,
-    hora_entrada: new Date("2025-06-18T09:15:00Z"),
-    hora_salida: new Date("2025-06-18T10:30:00Z"),
-    tiempo_total_min: 75,
-    costo: 3375.0
-  },
-  {
-    vehiculo_id: vehiculo28,
-    sede_id: sedeCentroId,
-    zona_id: zonaA3,
-    hora_entrada: new Date("2025-06-18T10:45:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-  {
-    vehiculo_id: vehiculo29,
-    sede_id: sedeSurId,
-    zona_id: zonaB3,
-    hora_entrada: new Date("2025-06-18T12:00:00Z"),
-    hora_salida: new Date("2025-06-18T13:30:00Z"),
-    tiempo_total_min: 90,
-    costo: 3750.0
-  },
-  {
-    vehiculo_id: vehiculo30,
-    sede_id: sedeNorteId,
-    zona_id: zonaA1,
-    hora_entrada: new Date("2025-06-18T14:00:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-    {
-    vehiculo_id: vehiculo1,
-    sede_id: sedeSurId,
-    zona_id: zonaC2,
-    hora_entrada: new Date("2025-06-19T08:00:00Z"),
-    hora_salida: new Date("2025-06-19T09:30:00Z"),
-    tiempo_total_min: 90,
-    costo: 4500.0
-  },
-  {
-    vehiculo_id: vehiculo2,
-    sede_id: sedeCentroId,
-    zona_id: zonaA3,
-    hora_entrada: new Date("2025-06-19T09:45:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-  {
-    vehiculo_id: vehiculo3,
-    sede_id: sedeNorteId,
-    zona_id: zonaA1,
-    hora_entrada: new Date("2025-06-19T10:30:00Z"),
-    hora_salida: new Date("2025-06-19T12:00:00Z"),
-    tiempo_total_min: 90,
-    costo: 4500.0
-  },
-  {
-    vehiculo_id: vehiculo4,
-    sede_id: sedeCentroId,
-    zona_id: zonaC3,
-    hora_entrada: new Date("2025-06-19T13:00:00Z"),
-    hora_salida: new Date("2025-06-19T14:30:00Z"),
-    tiempo_total_min: 90,
-    costo: 6300.0
-  },
-  {
-    vehiculo_id: vehiculo5,
-    sede_id: sedeSurId,
-    zona_id: zonaC1,
-    hora_entrada: new Date("2025-06-19T15:00:00Z"),
-    hora_salida: new Date("2025-06-19T15:45:00Z"),
-    tiempo_total_min: 45,
-    costo: 2250.0
-  },
-  {
-    vehiculo_id: vehiculo6,
-    sede_id: sedeNorteId,
-    zona_id: zonaA4,
-    hora_entrada: new Date("2025-06-20T08:30:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-  {
-    vehiculo_id: vehiculo7,
-    sede_id: sedeNorteId,
-    zona_id: zonaA1,
-    hora_entrada: new Date("2025-06-20T09:00:00Z"),
-    hora_salida: new Date("2025-06-20T10:00:00Z"),
-    tiempo_total_min: 60,
-    costo: 3000.0
-  },
-  {
-    vehiculo_id: vehiculo8,
-    sede_id: sedeCentroId,
-    zona_id: zonaB3,
-    hora_entrada: new Date("2025-06-20T10:30:00Z"),
-    hora_salida: new Date("2025-06-20T11:45:00Z"),
-    tiempo_total_min: 75,
-    costo: 3750.0
-  },
-  {
-    vehiculo_id: vehiculo9,
-    sede_id: sedeSurId,
-    zona_id: zonaB5,
-    hora_entrada: new Date("2025-06-20T12:00:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-  {
-    vehiculo_id: vehiculo10,
-    sede_id: sedeCentroId,
-    zona_id: zonaA3,
-    hora_entrada: new Date("2025-06-20T13:15:00Z"),
-    hora_salida: new Date("2025-06-20T13:45:00Z"),
-    tiempo_total_min: 30,
-    costo: 750.0
-  },
-  {
-    vehiculo_id: vehiculo11,
-    sede_id: sedeSurId,
-    zona_id: zonaC2,
-    hora_entrada: new Date("2025-06-20T14:00:00Z"),
-    hora_salida: new Date("2025-06-20T15:45:00Z"),
-    tiempo_total_min: 105,
-    costo: 9025.0
-  },
-  {
-    vehiculo_id: vehiculo12,
-    sede_id: sedeNorteId,
-    zona_id: zonaC5,
-    hora_entrada: new Date("2025-06-21T08:00:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-  {
-    vehiculo_id: vehiculo13,
-    sede_id: sedeCentroId,
-    zona_id: zonaB4,
-    hora_entrada: new Date("2025-06-21T09:30:00Z"),
-    hora_salida: new Date("2025-06-21T10:15:00Z"),
-    tiempo_total_min: 45,
-    costo: 1125.0
-  },
-  {
-    vehiculo_id: vehiculo14,
-    sede_id: sedeCentroId,
-    zona_id: zonaB1,
-    hora_entrada: new Date("2025-06-21T10:30:00Z"),
-    hora_salida: new Date("2025-06-21T11:45:00Z"),
-    tiempo_total_min: 75,
-    costo: 3750.0
-  },
-  {
-    vehiculo_id: vehiculo15,
-    sede_id: sedeSurId,
-    zona_id: zonaC1,
-    hora_entrada: new Date("2025-06-21T12:00:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-  {
-    vehiculo_id: vehiculo16,
-    sede_id: sedeSurId,
-    zona_id: zonaB3,
-    hora_entrada: new Date("2025-06-21T13:15:00Z"),
-    hora_salida: new Date("2025-06-21T14:15:00Z"),
-    tiempo_total_min: 60,
-    costo: 2500.0
-  },
-  {
-    vehiculo_id: vehiculo17,
-    sede_id: sedeNorteId,
-    zona_id: zonaA3,
-    hora_entrada: new Date("2025-06-21T14:30:00Z"),
-    hora_salida: null,
-    tiempo_total_min: null,
-    costo: null
-  },
-  {
-    vehiculo_id: vehiculo18,
-    sede_id: sedeCentroId,
-    zona_id: zonaB1,
-    hora_entrada: new Date("2025-06-22T08:00:00Z"),
-    hora_salida: new Date("2025-06-22T09:30:00Z"),
-    tiempo_total_min: 90,
-    costo: 4500.0
-  },
-  {
-    vehiculo_id: vehiculo19,
+    placa: "SUZ63N",
+    tipo_vehiculo: "moto",
     sede_id: sedeSurId,
     zona_id: zonaC4,
-    hora_entrada: new Date("2025-06-22T10:00:00Z"),
+    hora_entrada: new Date("2025-07-10T10:38:00-05:00"),
+    hora_salida: new Date("2025-07-10T13:20:00-05:00"),
+    tiempo_total_min: 162,
+    costo: 4050.0
+  },
+  {
+    placa: "AKT91C",
+    tipo_vehiculo: "moto",
+    sede_id: sedeCentroId,
+    zona_id: zonaB4,
+    hora_entrada: new Date("2025-07-04T18:20:00-05:00"),
+    hora_salida: new Date("2025-07-04T21:15:00-05:00"),
+    tiempo_total_min: 175,
+    costo: 5833.33
+  },
+  {
+    placa: "BAJ82T",
+    tipo_vehiculo: "moto",
+    sede_id: sedeNorteId,
+    zona_id: zonaA4,
+    hora_entrada: new Date("2025-07-07T18:56:00-05:00"),
+    hora_salida: new Date("2025-07-07T20:53:00-05:00"),
+    tiempo_total_min: 117,
+    costo: 2925.0
+  },
+  {
+    placa: "QUA39G",
+    tipo_vehiculo: "cuatrimoto",
+    sede_id: sedeCentroId,
+    zona_id: zonaB5,
+    hora_entrada: new Date("2025-07-11T17:33:00-05:00"),
+    hora_salida: new Date("2025-07-11T20:14:00-05:00"),
+    tiempo_total_min: 161,
+    costo: 6708.33
+  },
+  {
+    placa: "RDF345",
+    tipo_vehiculo: "carro",
+    sede_id: sedeCentroId,
+    zona_id: zonaB1,
+    hora_entrada: new Date("2025-07-11T15:47:00-05:00"),
+    hora_salida: new Date("2025-07-11T16:45:00-05:00"),
+    tiempo_total_min: 58,
+    costo: 2900.0
+  },
+  {
+    placa: "HTW823",
+    tipo_vehiculo: "carro",
+    sede_id: sedeNorteId,
+    zona_id: zonaA1,
+    hora_entrada: new Date("2025-07-10T16:41:00-05:00"),
     hora_salida: null,
     tiempo_total_min: null,
     costo: null
   },
   {
-    vehiculo_id: vehiculo20,
-    sede_id: sedeNorteId,
-    zona_id: zonaA2,
-    hora_entrada: new Date("2025-06-22T11:00:00Z"),
-    hora_salida: new Date("2025-06-22T12:30:00Z"),
-    tiempo_total_min: 90,
-    costo: 7750
+    placa: "JLU991",
+    tipo_vehiculo: "carro",
+    sede_id: sedeSurId,
+    zona_id: zonaC1,
+    hora_entrada: new Date("2025-07-11T15:54:00-05:00"),
+    hora_salida: new Date("2025-07-11T18:08:00-05:00"),
+    tiempo_total_min: 134,
+    costo: 4466.67
+  },
+  {
+    placa: "PTV490",
+    tipo_vehiculo: "furgoneta",
+    sede_id: sedeSurId,
+    zona_id: zonaC5,
+    hora_entrada: new Date("2025-07-07T11:18:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "EQC124",
+    tipo_vehiculo: "vehiculoElectrico",
+    sede_id: sedeCentroId,
+    zona_id: zonaB3,
+    hora_entrada: new Date("2025-07-03T09:08:00-05:00"),
+    hora_salida: null,
+    tiempo_total_min: null,
+    costo: null
+  },
+  {
+    placa: "RDF345",
+    tipo_vehiculo: "carro",
+    sede_id: sedeCentroId,
+    zona_id: zonaB1,
+    hora_entrada: new Date("2025-07-06T16:42:00-05:00"),
+    hora_salida: new Date("2025-07-06T17:34:00-05:00"),
+    tiempo_total_min: 52,
+    costo: 2600.0
+  },
+  {
+    placa: "AKT91C",
+    tipo_vehiculo: "moto",
+    sede_id: sedeCentroId,
+    zona_id: zonaB4,
+    hora_entrada: new Date("2025-07-04T09:17:00-05:00"),
+    hora_salida: new Date("2025-07-04T11:48:00-05:00"),
+    tiempo_total_min: 151,
+    costo: 5033.33
+  },
+  {
+    placa: "LPR134",
+    tipo_vehiculo: "camion",
+    sede_id: sedeSurId,
+    zona_id: zonaC2,
+    hora_entrada: new Date("2025-07-10T08:32:00-05:00"),
+    hora_salida: new Date("2025-07-10T10:42:00-05:00"),
+    tiempo_total_min: 130,
+    costo: 10833.33
+  },
+  {
+    placa: "FGT781",
+    tipo_vehiculo: "furgoneta",
+    sede_id: sedeCentroId,
+    zona_id: zonaB5,
+    hora_entrada: new Date("2025-07-02T13:56:00-05:00"),
+    hora_salida: new Date("2025-07-02T15:13:00-05:00"),
+    tiempo_total_min: 77,
+    costo: 3208.33
+  },
+  {
+    placa: "VXZ920",
+    tipo_vehiculo: "bus",
+    sede_id: sedeSurId,
+    zona_id: zonaC3,
+    hora_entrada: new Date("2025-07-06T09:57:00-05:00"),
+    hora_salida: new Date("2025-07-06T12:38:00-05:00"),
+    tiempo_total_min: 161,
+    costo: 11270.0
   }
 ]);
-db.parqueos.find({ hora_salida: null }).forEach(parqueo => {
-    db.zonas.updateOne(
-        { _id: parqueo.zona_id },
-        { $inc: { cupos_disponibles: -1 } }
-    );
-});
+
